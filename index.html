@@ -33,24 +33,11 @@
         }
     </script>
     <style>
-        /* Custom Scrollbar untuk tabel responsif */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .fade-in {
-            animation: fadeIn 0.25s ease-out forwards;
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        .fade-in { animation: fadeIn 0.25s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
@@ -81,7 +68,7 @@
                     </div>
                 </div>
 
-                <!-- Right Controls: Admin Mode Toggle & Reset -->
+                <!-- Right Controls -->
                 <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/10">
                     <!-- Google Sheet Connection Button -->
                     <button id="btn-gsheet-settings" onclick="openGSheetModal()"
@@ -91,7 +78,7 @@
                         <span id="gsheet-status-label">Google Sheet (Demo)</span>
                     </button>
 
-                    <!-- Refresh Data Button (Visible when connected) -->
+                    <!-- Refresh Data Button -->
                     <button id="btn-gsheet-refresh" onclick="syncFromGoogleSheet(true)" title="Muat ulang data dari Google Sheet"
                         class="hidden items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all shadow-sm">
                         <i id="refresh-icon" data-lucide="refresh-cw" class="w-4 h-4"></i>
@@ -137,18 +124,61 @@
     <div class="bg-white border-b border-slate-200 shadow-xs">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav aria-label="Breadcrumb" class="flex flex-wrap items-center justify-between gap-2">
-                <ol id="breadcrumb-list" class="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-600">
-                    <!-- Rendered dynamically via JS -->
-                </ol>
+                <ol id="breadcrumb-list" class="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-medium text-slate-600"></ol>
                 <div id="storage-indicator" class="text-xs text-slate-500 flex items-center gap-1.5">
                     <i data-lucide="database" class="w-3.5 h-3.5 text-amber-600"></i>
-                    <span>Mode Demo Lokal (Belum terhubung Google Sheet)</span>
+                    <span>Mode Demo Lokal (Klik tombol Google Sheet di atas untuk koneksi cloud)</span>
                 </div>
             </nav>
         </div>
     </div>
 
-    <!-- Global Loading Overlay untuk Sinkronisasi Google Sheet -->
+    <!-- Main Container -->
+    <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-grow">
+        <!-- Ringkasan Statistik Ringkas -->
+        <section id="stats-bar" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Kecamatan</p>
+                    <p id="stat-kecamatan" class="text-2xl font-extrabold text-slate-900">0</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="building-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Desa / Kelurahan</p>
+                    <p id="stat-desa" class="text-2xl font-extrabold text-slate-900">0</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0">
+                    <i data-lucide="users" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Pemilih Terdata</p>
+                    <p id="stat-pemilih" class="text-2xl font-extrabold text-slate-900">0</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic View Container -->
+        <section id="app-view" class="fade-in"></section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-5 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-semibold text-slate-700">Sistem Informasi Pencatatan Data Pemilih & Hasil Pemilu (SIPEMILU)</p>
+            <p class="mt-1">PIN Demo Admin: <code class="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-slate-800 font-bold">admin123</code> • Mendukung penyimpanan terpusat Google Sheets</p>
+        </div>
+    </footer>
+
+    <!-- Global Loading Overlay -->
     <div id="global-sync-loader" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4">
         <div class="bg-white rounded-2xl px-6 py-5 shadow-2xl border border-slate-200 flex items-center gap-4 max-w-sm w-full fade-in">
             <div class="w-10 h-10 rounded-full border-4 border-blue-900/20 border-t-blue-900 animate-spin flex-shrink-0"></div>
@@ -159,7 +189,79 @@
         </div>
     </div>
 
-    <!-- 3. Modal Konfirmasi Hapus / Reset (Pengganti confirm() native) -->
+    <!-- Modal 1: Login Admin -->
+    <div id="modal-admin-login" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
+            <div class="bg-[#0f2537] px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-amber-400"></i>
+                    <h3 class="font-bold text-base">Verifikasi Akses Administrator</h3>
+                </div>
+                <button onclick="closeModal('modal-admin-login')" class="text-slate-300 hover:text-white p-1 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form onsubmit="submitAdminLogin(event)" class="p-6 space-y-4">
+                <p class="text-xs sm:text-sm text-slate-600">
+                    Masukkan PIN Administrator untuk mengaktifkan hak akses tambah dan hapus Kecamatan, Desa, maupun Data Pemilih.
+                </p>
+                <div>
+                    <label for="input-admin-pin" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">PIN Admin</label>
+                    <input type="password" id="input-admin-pin" required placeholder="Masukkan PIN (default: admin123)"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900 text-sm">
+                    <p id="admin-login-error" class="hidden text-xs text-red-600 font-semibold mt-1.5">PIN salah. Gunakan "admin123" untuk demo.</p>
+                </div>
+                <div class="flex items-center justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-admin-login')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-sm font-bold bg-blue-900 hover:bg-blue-800 text-white shadow-sm">
+                        Masuk Admin
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Pratinjau Foto KTP (Privasi) -->
+    <div id="modal-ktp-preview" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/75 backdrop-blur-xs p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 fade-in">
+            <div class="bg-gradient-to-r from-[#0f2537] to-[#1e3a8a] px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <i data-lucide="id-card" class="w-5 h-5 text-amber-400"></i>
+                    <div>
+                        <h3 class="font-bold text-base leading-tight">Dokumen Identitas KTP</h3>
+                        <p class="text-[11px] text-blue-200">Tampilan Terbatas • Verifikasi Data Pemilih</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-ktp-preview')" class="text-slate-300 hover:text-white p-1.5 rounded-lg bg-white/10">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="bg-slate-100 rounded-xl p-3 border border-slate-200 flex items-center justify-center overflow-hidden min-h-[220px]">
+                    <img id="preview-ktp-img" src="" alt="Foto KTP Pemilih" class="max-h-72 w-auto rounded-lg shadow-md object-contain">
+                </div>
+                <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Nama Lengkap</span>
+                        <span id="preview-ktp-nama" class="font-bold text-slate-900 text-base">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">NIK KTP</span>
+                        <span id="preview-ktp-nik" class="font-mono font-bold text-blue-900 text-base">-</span>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button onclick="closeModal('modal-ktp-preview')" class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-sm font-bold bg-slate-800 hover:bg-slate-900 text-white">
+                        Tutup Pratinjau
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Konfirmasi Hapus / Reset -->
     <div id="modal-confirm" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="p-6 space-y-4">
@@ -184,10 +286,9 @@
         </div>
     </div>
 
-    <!-- 4. Modal Pengaturan & Kode Google Apps Script -->
+    <!-- Modal 4: Pengaturan & Kode Google Apps Script -->
     <div id="modal-gsheet" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-200 my-auto fade-in">
-            <!-- Header Modal -->
             <div class="bg-gradient-to-r from-[#0f2537] to-emerald-900 px-6 py-4 text-white flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <i data-lucide="sheet" class="w-5 h-5 text-emerald-300"></i>
@@ -259,11 +360,11 @@
                 <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-950 space-y-2">
                     <p class="font-bold text-sm text-blue-900">Langkah Pemasangan di Google Sheet (3 Menit):</p>
                     <ol class="list-decimal list-inside space-y-1.5 leading-relaxed">
-                        <li>Buka <a href="https://sheets.new" target="_blank" class="underline font-bold text-blue-700">sheets.new</a> untuk membuat Google Spreadsheet baru (beri nama misal: <em>Database Pemilu Kabupaten</em>).</li>
+                        <li>Buka Google Spreadsheet <strong>Database Pemilu Kabupaten</strong> Anda.</li>
                         <li>Klik menu <strong>Extensions (Ekstensi)</strong> &rarr; <strong>Apps Script</strong>.</li>
                         <li>Hapus semua kode bawaan di editor, lalu klik tombol <strong>"Salin Kode Apps Script"</strong> di bawah ini dan paste ke editor Apps Script.</li>
                         <li>Klik ikon <strong>Save (Simpan)</strong>, lalu klik tombol biru <strong>Deploy (Terapkan)</strong> &rarr; <strong>New deployment (Deployment baru)</strong>.</li>
-                        <li>Pada ikon roda gigi (Select type), pilih <strong>Web app</strong>. Isi <em>Execute as</em>: <strong>Me</strong>, dan <em>Who has access</em>: <strong>Anyone (Siapa saja)</strong>.</li>
+                        <li>Pilih jenis <strong>Web app</strong>. Isi <em>Execute as</em>: <strong>Me</strong>, dan <em>Who has access</em>: <strong>Anyone (Siapa saja)</strong>.</li>
                         <li>Klik <strong>Deploy</strong>, izinkan akses (Authorize access), lalu salin <strong>Web app URL</strong> (akhiran <code>/exec</code>) ke Tab 1 di atas.</li>
                     </ol>
                 </div>
@@ -286,16 +387,12 @@
     <!-- Toast Notification -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- ===================================================================== -->
     <!-- JAVASCRIPT APPLICATION LOGIC -->
-    <!-- ===================================================================== -->
     <script>
-        // Kunci penyimpanan LocalStorage
         const STORAGE_KEY = 'sipemilu_kabupaten_data_v1';
         const GSHEET_URL_KEY = 'sipemilu_gsheet_webapp_url_v1';
         const ADMIN_PIN = 'admin123';
 
-        // Template Kode Google Apps Script lengkap (doGet & doPost)
         const APPS_SCRIPT_TEMPLATE = `/**
  * SIPEMILU KABUPATEN - Google Apps Script Web App API
  * Mendukung tab otomatis: Kecamatan, Desa, Data_Pemilih
@@ -356,7 +453,6 @@ function handleRequest(e, payload) {
 
     if (action === 'addPemilih') {
       var pemilihSheet = ss.getSheetByName('Data_Pemilih');
-      // Simpan NIK dengan apostrof agar angka nol di depan tidak hilang di Google Sheet
       pemilihSheet.appendRow([
         payload.id,
         payload.kecamatanId,
@@ -465,11 +561,124 @@ function jsonResponse(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }`;
 
-        // State Aplikasi
+        function generateDummyKtpImage(nama, nik, desa = 'MEKARSARI', kecamatan = 'SUKAMAJU') {
+            const safeNama = escapeXml(nama.toUpperCase());
+            const safeNik = escapeXml(nik);
+            const safeDesa = escapeXml(desa.toUpperCase());
+            const safeKec = escapeXml(kecamatan.toUpperCase());
+
+            const svg = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="540" height="340" viewBox="0 0 540 340">
+                <defs>
+                    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#bae6fd"/>
+                        <stop offset="55%" stop-color="#e0f2fe"/>
+                        <stop offset="100%" stop-color="#7dd3fc"/>
+                    </linearGradient>
+                </defs>
+                <rect width="540" height="340" rx="18" fill="url(#bg)" stroke="#0284c7" stroke-width="3"/>
+                <rect x="0" y="0" width="540" height="58" rx="16" fill="#0369a1"/>
+                <rect x="0" y="42" width="540" height="16" fill="#0369a1"/>
+                <text x="270" y="25" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">PROVINSI NUSANTARA</text>
+                <text x="270" y="46" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#fde047" text-anchor="middle">KABUPATEN NUSANTARA</text>
+                <text x="24" y="88" font-family="Courier New, monospace" font-size="14" font-weight="bold" fill="#0f172a">NIK</text>
+                <text x="135" y="88" font-family="Courier New, monospace" font-size="18" font-weight="bold" fill="#0f172a">: ${safeNik}</text>
+                <g font-family="Arial, sans-serif" font-size="12" fill="#0f172a">
+                    <text x="24" y="120" font-weight="bold">Nama</text>
+                    <text x="135" y="120" font-weight="bold">: ${safeNama}</text>
+                    <text x="24" y="144">Tempat/Tgl Lahir</text>
+                    <text x="135" y="144">: NUSANTARA, 17-08-1995</text>
+                    <text x="24" y="168">Jenis Kelamin</text>
+                    <text x="135" y="168">: LAKI-LAKI</text>
+                    <text x="24" y="192">Kel/Desa</text>
+                    <text x="135" y="192">: ${safeDesa}</text>
+                    <text x="24" y="216">Kecamatan</text>
+                    <text x="135" y="216">: ${safeKec}</text>
+                    <text x="24" y="240">Status Kawin</text>
+                    <text x="135" y="240">: TERVERIFIKASI PEMILU</text>
+                    <text x="24" y="264">Kewarganegaraan</text>
+                    <text x="135" y="264">: WNI</text>
+                </g>
+                <rect x="392" y="102" width="118" height="145" rx="8" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+                <circle cx="451" cy="152" r="24" fill="#fecaca"/>
+                <path d="M412 232 C412 198, 490 198, 490 232 Z" fill="#fecaca"/>
+                <text x="451" y="268" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#0f172a" text-anchor="middle">KAB. NUSANTARA</text>
+                <text x="451" y="282" font-family="Arial, sans-serif" font-size="9" fill="#334155" text-anchor="middle">01-01-2026</text>
+                <rect x="24" y="295" width="492" height="26" rx="6" fill="#0f172a" fill-opacity="0.08"/>
+                <text x="270" y="312" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#0369a1" text-anchor="middle">DOKUMEN IDENTITAS PEMILIH TERDAFTAR • SIPEMILU</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.trim());
+        }
+
+        function escapeXml(unsafe) {
+            return String(unsafe).replace(/[<>&'"]/g, function (c) {
+                switch (c) {
+                    case '<': return '&lt;';
+                    case '>': return '&gt;';
+                    case '&': return '&amp;';
+                    case '\'': return '&apos;';
+                    case '"': return '&quot;';
+                }
+            });
+        }
+
+        function getInitialSeedData() {
+            return {
+                kabupatenName: 'Kabupaten Nusantara',
+                kecamatanList: [
+                    {
+                        id: 'kec-1',
+                        nama: 'Kecamatan Sukamaju',
+                        kode: '32.01.01',
+                        desaList: [
+                            {
+                                id: 'desa-101',
+                                nama: 'Desa Mekarsari',
+                                kode: '2001',
+                                pemilihList: [
+                                    {
+                                        id: 'pemilih-1',
+                                        nama: 'Syahfry',
+                                        nik: '1233444555',
+                                        fotoKtp: generateDummyKtpImage('Syahfry', '1233444555', 'Desa Mekarsari', 'Kecamatan Sukamaju')
+                                    },
+                                    {
+                                        id: 'pemilih-2',
+                                        nama: 'Bilal',
+                                        nik: '123525534',
+                                        fotoKtp: generateDummyKtpImage('Bilal', '123525534', 'Desa Mekarsari', 'Kecamatan Sukamaju')
+                                    }
+                                ]
+                            },
+                            {
+                                id: 'desa-102',
+                                nama: 'Desa Harapan Jaya',
+                                kode: '2002',
+                                pemilihList: []
+                            }
+                        ]
+                    },
+                    {
+                        id: 'kec-2',
+                        nama: 'Kecamatan Merdeka',
+                        kode: '32.01.02',
+                        desaList: [
+                            {
+                                id: 'desa-201',
+                                nama: 'Desa Sejahtera',
+                                kode: '2001',
+                                pemilihList: []
+                            }
+                        ]
+                    }
+                ]
+            };
+        }
+
         let appState = {
             kabupatenName: 'Kabupaten Nusantara',
             kecamatanList: [],
-            currentLevel: 'kabupaten', // 'kabupaten' | 'kecamatan' | 'desa'
+            currentLevel: 'kabupaten',
             selectedKecamatanId: null,
             selectedDesaId: null,
             isAdmin: false,
@@ -477,9 +686,6 @@ function jsonResponse(obj) {
             gsheetUrl: ''
         };
 
-        /**
-         * Memuat data dari LocalStorage atau inisialisasi data awal, lalu sinkron ke Google Sheet jika URL tersedia
-         */
         async function loadData() {
             appState.gsheetUrl = localStorage.getItem(GSHEET_URL_KEY) || '';
             updateGSheetConnectionUI();
@@ -502,18 +708,14 @@ function jsonResponse(obj) {
             } catch (err) {
                 console.error('Gagal membaca localStorage:', err);
             }
-            // Fallback ke data awal
             const seed = getInitialSeedData();
             appState.kabupatenName = seed.kabupatenName;
             appState.kecamatanList = seed.kecamatanList;
             saveData();
         }
 
-        /**
-         * Menyimpan data ke LocalStorage (digunakan saat Mode Demo Lokal)
-         */
         function saveData() {
-            if (appState.gsheetUrl) return; // Jika mode Google Sheet, sumber kebenaran ada di Sheet
+            if (appState.gsheetUrl) return;
             try {
                 const payload = {
                     kabupatenName: appState.kabupatenName,
@@ -521,14 +723,9 @@ function jsonResponse(obj) {
                 };
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
             } catch (err) {
-                console.error('Gagal menyimpan ke localStorage:', err);
                 showToast('Peringatan: Penyimpanan browser penuh (gambar terlalu besar).', 'error');
             }
         }
-
-        // =====================================================================
-        // GOOGLE SHEETS API INTEGRATION (GET & POST)
-        // =====================================================================
 
         function setGlobalLoading(isLoading, title = 'Menyinkronkan Google Sheet...', subtitle = 'Mohon tunggu sebentar') {
             const loader = document.getElementById('global-sync-loader');
@@ -543,9 +740,6 @@ function jsonResponse(obj) {
             }
         }
 
-        /**
-         * Mengambil seluruh hierarki data dari Google Sheet via GET
-         */
         async function syncFromGoogleSheet(showNotification = true) {
             if (!appState.gsheetUrl) return;
             setGlobalLoading(true, 'Mengambil Data dari Google Sheet...', 'Membaca tab Kecamatan, Desa, & Data_Pemilih');
@@ -561,7 +755,6 @@ function jsonResponse(obj) {
                 const result = await response.json();
 
                 if (result && result.status === 'success' && Array.isArray(result.data)) {
-                    // Pastikan setiap pemilih memiliki fallback gambar jika kolom Foto_KTP kosong
                     appState.kecamatanList = result.data.map(kec => ({
                         ...kec,
                         desaList: (kec.desaList || []).map(desa => ({
@@ -582,7 +775,6 @@ function jsonResponse(obj) {
                     throw new Error(result.message || 'Format respons Google Sheet tidak valid.');
                 }
             } catch (error) {
-                console.error('Error GET Google Sheet:', error);
                 showToast('Gagal memuat dari Google Sheet: ' + error.message, 'error');
             } finally {
                 setGlobalLoading(false);
@@ -590,9 +782,6 @@ function jsonResponse(obj) {
             }
         }
 
-        /**
-         * Mengirim mutasi data (Tambah / Hapus) ke Google Sheet via POST (text/plain bebas CORS preflight)
-         */
         async function postToGoogleSheet(payloadObj, loadingMsg = 'Menyimpan ke Google Sheet...') {
             if (!appState.gsheetUrl) return null;
             setGlobalLoading(true, loadingMsg, 'Mengirim perubahan ke database spreadsheet');
@@ -600,9 +789,7 @@ function jsonResponse(obj) {
                 const response = await fetch(appState.gsheetUrl, {
                     method: 'POST',
                     redirect: 'follow',
-                    headers: {
-                        'Content-Type': 'text/plain;charset=utf-8'
-                    },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(payloadObj)
                 });
                 const result = await response.json();
@@ -626,7 +813,6 @@ function jsonResponse(obj) {
                     throw new Error(result.message || 'Gagal menyimpan ke Google Sheet');
                 }
             } catch (error) {
-                console.error('Error POST Google Sheet:', error);
                 showToast('Gagal menyimpan ke Google Sheet: ' + error.message, 'error');
                 return null;
             } finally {
@@ -764,9 +950,6 @@ function jsonResponse(obj) {
             }
         }
 
-        /**
-         * Menampilkan notifikasi Toast
-         */
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -789,9 +972,6 @@ function jsonResponse(obj) {
             }, 3200);
         }
 
-        /**
-         * Escape HTML untuk mencegah XSS
-         */
         function escapeHtml(str) {
             if (str === null || str === undefined) return '';
             return String(str)
@@ -801,10 +981,6 @@ function jsonResponse(obj) {
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
         }
-
-        // =====================================================================
-        // ADMIN AUTHENTICATION & MODAL CONTROLS
-        // =====================================================================
 
         function handleAdminToggle() {
             if (appState.isAdmin) {
@@ -840,7 +1016,6 @@ function jsonResponse(obj) {
 
         function updateAdminUI() {
             const btn = document.getElementById('btn-admin-toggle');
-            const label = document.getElementById('admin-label');
             const banner = document.getElementById('admin-banner');
 
             if (appState.isAdmin) {
@@ -871,11 +1046,8 @@ function jsonResponse(obj) {
             document.getElementById('confirm-title').textContent = title;
             document.getElementById('confirm-message').textContent = message;
             const confirmBtn = document.getElementById('btn-confirm-action');
-            
-            // Clone to remove old event listeners
             const newBtn = confirmBtn.cloneNode(true);
             confirmBtn.parentNode.replaceChild(newBtn, confirmBtn);
-            
             newBtn.addEventListener('click', () => {
                 closeModal('modal-confirm');
                 onConfirmCallback();
@@ -901,10 +1073,6 @@ function jsonResponse(obj) {
                 }
             );
         }
-
-        // =====================================================================
-        // NAVIGATION & BREADCRUMBS
-        // =====================================================================
 
         function navigateTo(level, kecamatanId = null, desaId = null) {
             appState.currentLevel = level;
@@ -968,10 +1136,6 @@ function jsonResponse(obj) {
             list.innerHTML = html;
         }
 
-        // =====================================================================
-        // STATISTICS CALCULATION
-        // =====================================================================
-
         function updateStatistics() {
             const totalKec = appState.kecamatanList.length;
             let totalDesa = 0;
@@ -988,10 +1152,6 @@ function jsonResponse(obj) {
             document.getElementById('stat-desa').textContent = totalDesa.toLocaleString('id-ID');
             document.getElementById('stat-pemilih').textContent = totalPemilih.toLocaleString('id-ID');
         }
-
-        // =====================================================================
-        // CRUD OPERATIONS: KECAMATAN, DESA, PEMILIH
-        // =====================================================================
 
         async function handleAddKecamatan(event) {
             event.preventDefault();
@@ -1139,7 +1299,6 @@ function jsonResponse(obj) {
 
             if (!nama || !nik) return;
 
-            // Cek duplikasi NIK di desa yang sama
             const isDuplicate = desa.pemilihList.some(p => p.nik === nik);
             if (isDuplicate) {
                 showToast(`NIK ${nik} sudah terdaftar di ${desa.nama}!`, 'error');
@@ -1172,12 +1331,10 @@ function jsonResponse(obj) {
                 showToast(`Data pemilih "${nama}" berhasil disimpan.`, 'success');
             };
 
-            // Jika user mengunggah file gambar KTP
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // Kompresi lebih hemat karakter (maks 480px JPEG 0.65) agar muat dalam limit 50.000 karakter sel Google Sheet
                     compressImageForSheet(e.target.result, (compressedUrl) => {
                         finalizeSave(compressedUrl, compressedUrl);
                     });
@@ -1191,15 +1348,11 @@ function jsonResponse(obj) {
             } else if (urlFoto) {
                 finalizeSave(urlFoto, urlFoto);
             } else {
-                // Gunakan KTP SVG otomatis jika tidak mengunggah file (simpan string kosong di Sheet agar kolom tetap rapi)
                 const dummy = generateDummyKtpImage(nama, nik, desa.nama, kec.nama);
                 finalizeSave(dummy, '');
             }
         }
 
-        /**
-         * Kompresi gambar upload agar ringan dikirim ke Google Sheets (< 45.000 karakter per sel)
-         */
         function compressImageForSheet(dataUrl, callback) {
             const img = new Image();
             img.onload = function() {
@@ -1249,9 +1402,6 @@ function jsonResponse(obj) {
             );
         }
 
-        /**
-         * Membuka Modal Privasi Foto KTP saat tombol "Lihat" diklik
-         */
         function viewKtpPhoto(pemilihId) {
             const desa = getActiveDesa();
             if (!desa) return;
@@ -1275,10 +1425,6 @@ function jsonResponse(obj) {
             renderViewContentOnly();
         }
 
-        // =====================================================================
-        // VIEW RENDERING (KABUPATEN -> KECAMATAN -> DESA)
-        // =====================================================================
-
         function render() {
             updateStatistics();
             renderBreadcrumbs();
@@ -1297,9 +1443,6 @@ function jsonResponse(obj) {
             lucide.createIcons();
         }
 
-        /**
-         * LEVEL 1: KABUPATEN (Daftar Kecamatan)
-         */
         function renderKabupatenView() {
             const filteredKec = appState.kecamatanList.filter(k => 
                 k.nama.toLowerCase().includes(appState.searchQuery) ||
@@ -1308,7 +1451,6 @@ function jsonResponse(obj) {
 
             return `
                 <div class="space-y-6">
-                    <!-- Section Header & Search -->
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-blue-900 text-xs font-bold mb-2">
@@ -1326,7 +1468,6 @@ function jsonResponse(obj) {
                         </div>
                     </div>
 
-                    <!-- Admin Form: Tambah Kecamatan -->
                     ${appState.isAdmin ? `
                     <div class="bg-gradient-to-r from-blue-950 to-blue-900 rounded-2xl p-5 sm:p-6 text-white shadow-md border border-blue-800">
                         <div class="flex items-center gap-2 mb-4">
@@ -1356,7 +1497,6 @@ function jsonResponse(obj) {
                     </div>
                     ` : ''}
 
-                    <!-- Grid Daftar Kecamatan -->
                     ${filteredKec.length === 0 ? `
                         <div class="bg-white rounded-2xl p-12 text-center border border-slate-200">
                             <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
@@ -1417,9 +1557,6 @@ function jsonResponse(obj) {
             `;
         }
 
-        /**
-         * LEVEL 2: KECAMATAN (Daftar Desa)
-         */
         function renderKecamatanView() {
             const kec = getActiveKecamatan();
             if (!kec) {
@@ -1434,7 +1571,6 @@ function jsonResponse(obj) {
 
             return `
                 <div class="space-y-6">
-                    <!-- Section Header & Back Button -->
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <div class="flex flex-wrap items-center gap-2 mb-2">
@@ -1457,7 +1593,6 @@ function jsonResponse(obj) {
                         </div>
                     </div>
 
-                    <!-- Admin Form: Tambah Desa -->
                     ${appState.isAdmin ? `
                     <div class="bg-gradient-to-r from-blue-950 to-blue-900 rounded-2xl p-5 sm:p-6 text-white shadow-md border border-blue-800">
                         <div class="flex items-center gap-2 mb-4">
@@ -1487,7 +1622,6 @@ function jsonResponse(obj) {
                     </div>
                     ` : ''}
 
-                    <!-- Grid Daftar Desa -->
                     ${filteredDesa.length === 0 ? `
                         <div class="bg-white rounded-2xl p-12 text-center border border-slate-200">
                             <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
@@ -1543,9 +1677,6 @@ function jsonResponse(obj) {
             `;
         }
 
-        /**
-         * LEVEL 3: DESA (Tabel Data Pemilih + Form Tambah + Privasi Foto KTP)
-         */
         function renderDesaView() {
             const kec = getActiveKecamatan();
             const desa = getActiveDesa();
@@ -1561,7 +1692,6 @@ function jsonResponse(obj) {
 
             return `
                 <div class="space-y-6">
-                    <!-- Header Desa -->
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <div class="flex flex-wrap items-center gap-2 mb-2">
@@ -1575,7 +1705,7 @@ function jsonResponse(obj) {
                             </div>
                             <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">${escapeHtml(desa.nama)}</h2>
                             <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                                ${escapeHtml(kec.nama)} • Klik tombol <strong>"Lihat"</strong> pada kolom Foto KTP untuk membuka dokumen identitas pemilih.
+                                ${escapeHtml(kec.nama)} • Klik tombol <strong>"Lihat Foto KTP"</strong> pada kolom Foto KTP untuk membuka dokumen identitas pemilih.
                             </p>
                         </div>
                         <div class="relative w-full md:w-72">
@@ -1586,7 +1716,6 @@ function jsonResponse(obj) {
                         </div>
                     </div>
 
-                    <!-- Form Tambah Data Pemilih (Tersedia langsung untuk petugas/admin) -->
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-blue-900/15 shadow-xs">
                         <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-100">
                             <div class="flex items-center gap-2.5">
@@ -1630,7 +1759,6 @@ function jsonResponse(obj) {
                         </form>
                     </div>
 
-                    <!-- Tabel Data Pemilih -->
                     <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                         <div class="px-5 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                             <h3 class="font-bold text-sm sm:text-base text-slate-800 flex items-center gap-2">
@@ -1700,9 +1828,6 @@ function jsonResponse(obj) {
             `;
         }
 
-        // =====================================================================
-        // INITIALIZATION ON WINDOW LOAD
-        // =====================================================================
         window.addEventListener('DOMContentLoaded', async () => {
             updateAdminUI();
             await loadData();
