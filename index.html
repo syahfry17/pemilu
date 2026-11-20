@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPEMILU v3.2 - Isolasi Wilayah, Admin Desa & Saksi TPS</title>
+    <title>SIPEMILU CALEG SYAHFRY v4.0 - Penataan DPT, Pengumpul KTP & Saksi C1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,11 +27,11 @@
                     </div>
                     <div>
                         <div class="flex items-center gap-2">
-                            <h1 class="text-lg sm:text-xl font-extrabold tracking-tight leading-none">SIPEMILU KABUPATEN</h1>
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white">v3.2</span>
+                            <h1 id="header-caleg-title" class="text-lg sm:text-xl font-extrabold tracking-tight leading-none">SIPEMILU CALEG SYAHFRY</h1>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white">v4.0</span>
                         </div>
                         <p id="header-kabupaten-subtitle" class="text-xs sm:text-sm text-blue-200 font-medium mt-0.5">
-                            Sistem Terisolasi • Saksi TPS & Rekap Desa
+                            DPT Pendukung, Tim Pengumpul KTP & Saksi Plano C1
                         </p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
 
                     <button id="btn-gsheet-refresh" onclick="syncUserData(true)" title="Muat ulang data"
                         class="hidden items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-medium bg-white/10 hover:bg-white/20 text-white border border-white/20">
-                        <i id="refresh-icon" data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
                     </button>
 
                     <button id="btn-audit-log" onclick="openAuditLogModal()" title="Riwayat Aktivitas"
@@ -77,7 +77,7 @@
                 <button id="btn-manage-users" onclick="openUsersModal()"
                     class="hidden text-xs font-bold bg-blue-900 hover:bg-blue-800 text-white px-3 py-1.5 rounded-lg items-center gap-1.5">
                     <i data-lucide="users-round" class="w-3.5 h-3.5"></i>
-                    <span id="btn-manage-users-label">Kelola Akun</span>
+                    <span id="btn-manage-users-label">Kelola Tim</span>
                 </button>
                 <button id="btn-open-config" onclick="openConfigModal()"
                     class="hidden text-xs font-bold bg-amber-200 hover:bg-amber-300 text-amber-950 px-3 py-1.5 rounded-lg items-center gap-1">
@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    <!-- Breadcrumb Bar (Hanya untuk Super Admin / Kecamatan) -->
+    <!-- Breadcrumb Bar (Super Admin) -->
     <div id="breadcrumb-bar" class="hidden bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav class="flex flex-wrap items-center justify-between gap-2">
@@ -105,24 +105,24 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-grow">
-        <!-- Global Stats (KHUSUS SUPER ADMIN) -->
+        <!-- Global Stats (KHUSUS CALEG SYAHFRY / SUPER ADMIN) -->
         <section id="super-stats-section" class="hidden space-y-6 mb-6">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                 <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-blue-50 text-blue-900 flex items-center justify-center"><i data-lucide="map" class="w-5 h-5"></i></div>
-                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Total Kecamatan</p><p id="stat-kecamatan" class="text-xl sm:text-2xl font-extrabold text-slate-900">0</p></div>
-                </div>
-                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center gap-3.5">
-                    <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i data-lucide="building-2" class="w-5 h-5"></i></div>
-                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Total Desa / TPS</p><p id="stat-desa-tps" class="text-lg sm:text-xl font-extrabold text-slate-900">0 / 0</p></div>
+                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Kecamatan / Desa</p><p id="stat-kec-desa" class="text-xl font-extrabold text-slate-900">0 / 0</p></div>
                 </div>
                 <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center"><i data-lucide="user-check" class="w-5 h-5"></i></div>
-                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Total KTP Kabupaten</p><p id="stat-pemilih" class="text-xl sm:text-2xl font-extrabold text-emerald-700">0</p></div>
+                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Total KTP SYAHFRY</p><p id="stat-pemilih" class="text-xl sm:text-2xl font-extrabold text-emerald-700">0</p></div>
+                </div>
+                <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center gap-3.5">
+                    <div class="w-11 h-11 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i data-lucide="award" class="w-5 h-5"></i></div>
+                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Suara SYAHFRY (C1)</p><p id="stat-suara-syahfry" class="text-xl sm:text-2xl font-extrabold text-blue-900">0</p></div>
                 </div>
                 <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs flex items-center gap-3.5">
                     <div class="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center"><i data-lucide="bar-chart-3" class="w-5 h-5"></i></div>
-                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Total Suara Sah</p><p id="stat-suara" class="text-xl sm:text-2xl font-extrabold text-red-600">0</p></div>
+                    <div><p class="text-[11px] font-semibold uppercase text-slate-400">Total Suara Partai</p><p id="stat-suara-partai" class="text-xl sm:text-2xl font-extrabold text-red-600">0</p></div>
                 </div>
             </div>
             <div id="global-vote-summary" class="hidden bg-white rounded-2xl p-5 border border-slate-200 shadow-xs"></div>
@@ -135,7 +135,7 @@
     <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 mt-12 py-5 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4">
-            <p class="font-semibold text-slate-700">SIPEMILU v3.2 • Isolasi Data Ketat (Super Admin &rarr; Admin Desa &rarr; Saksi TPS)</p>
+            <p class="font-semibold text-slate-700">SIPEMILU CALEG SYAHFRY v4.0 • Penataan DPT Desa, Pengumpul KTP & Saksi Plano C1</p>
         </div>
     </footer>
 
@@ -145,27 +145,27 @@
             <div class="w-10 h-10 rounded-full border-4 border-blue-900/20 border-t-blue-900 animate-spin flex-shrink-0"></div>
             <div>
                 <h4 id="loader-title" class="text-sm font-bold text-slate-900">Memproses ke Server...</h4>
-                <p id="loader-subtitle" class="text-xs text-slate-500 mt-0.5">Memverifikasi hak akses & cakupan wilayah</p>
+                <p class="text-xs text-slate-500 mt-0.5">Menyinkronkan data tim pemenangan</p>
             </div>
         </div>
     </div>
 
-    <!-- Modal Kelola Akun (Admin Desa -> Buat Akun Saksi TPS; Super Admin -> Buat Akun Desa/Kecamatan/Saksi) -->
+    <!-- Modal Kelola Akun Tim (Admin Desa -> Pengumpul KTP & Saksi; Super Admin -> Desa/Pengumpul/Saksi) -->
     <div id="modal-users" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 my-auto fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-blue-900 px-6 py-4 text-white flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <i data-lucide="users-round" class="w-5 h-5 text-amber-400"></i>
-                    <h3 id="modal-users-title" class="font-bold text-base">Manajemen Akun Petugas</h3>
+                    <h3 class="font-bold text-base">Kelola Akun Tim Pemenangan</h3>
                 </div>
                 <button onclick="closeModal('modal-users')" class="text-slate-300 hover:text-white p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div class="p-6 space-y-5">
                 <form onsubmit="submitAddUser(event)" class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">Buat Akun Baru</h4>
+                    <h4 class="text-xs font-extrabold uppercase tracking-wider text-slate-700">Tambah Akun Petugas Baru</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Peran / Role *</label>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Peran / Jabatan *</label>
                             <select id="user-form-role" onchange="populateUserScopeOptions()" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white"></select>
                         </div>
                         <div>
@@ -173,10 +173,14 @@
                             <select id="user-form-scope" required class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white"></select>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 mb-1">Username Login *</label>
-                            <input type="text" id="user-form-username" required placeholder="misal: saksi_kpadang_01" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Petugas *</label>
+                            <input type="text" id="user-form-display" required placeholder="Misal: Budi Santoso (Tim KTP)" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
                         </div>
                         <div>
+                            <label class="block text-xs font-bold text-slate-700 mb-1">Username Login *</label>
+                            <input type="text" id="user-form-username" required placeholder="Misal: ktp_budi01" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                        </div>
+                        <div class="sm:col-span-2">
                             <label class="block text-xs font-bold text-slate-700 mb-1">PIN Login *</label>
                             <input type="text" id="user-form-pin" required placeholder="Minimal 6 angka/huruf" class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-sm">
                         </div>
@@ -192,8 +196,8 @@
                     <table class="w-full text-left border-collapse text-xs sm:text-sm">
                         <thead>
                             <tr class="bg-[#0f2537] text-white text-xs uppercase">
-                                <th class="py-2.5 px-3">Username</th>
-                                <th class="py-2.5 px-3">Role</th>
+                                <th class="py-2.5 px-3">Nama & Username</th>
+                                <th class="py-2.5 px-3">Jabatan</th>
                                 <th class="py-2.5 px-3">Wilayah / TPS</th>
                                 <th class="py-2.5 px-3 text-center">Hapus</th>
                             </tr>
@@ -209,7 +213,7 @@
     <div id="modal-logs" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl shadow-2xl max-w-3xl w-full overflow-hidden border border-slate-200 my-auto fade-in">
             <div class="bg-[#0f2537] px-6 py-4 text-white flex items-center justify-between">
-                <h3 class="font-bold text-base">Riwayat Aktivitas & Perubahan Data</h3>
+                <h3 class="font-bold text-base">Riwayat Aktivitas & Penataan DPT</h3>
                 <button onclick="closeModal('modal-logs')" class="text-slate-300 hover:text-white p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <div class="p-4 max-h-[70vh] overflow-y-auto">
@@ -229,7 +233,7 @@
         </div>
     </div>
 
-    <!-- Modal Pratinjau Foto (KTP maupun C.Hasil Plano) -->
+    <!-- Modal Pratinjau Foto (KTP maupun Plano C1) -->
     <div id="modal-photo-preview" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/75 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-[#1e3a8a] px-6 py-4 text-white flex items-center justify-between">
@@ -291,25 +295,18 @@
         </div>
     </div>
 
-    <!-- Modal Pengaturan Super Admin (Termasuk Sakelar Admin Kecamatan Ada / Tidak Ada) -->
+    <!-- Modal Pengaturan Caleg SYAHFRY (Super Admin) -->
     <div id="modal-config" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-[#0f2537] px-6 py-4 text-white flex items-center justify-between">
-                <h3 class="font-bold text-base">Pengaturan Sistem & Hierarki</h3>
+                <h3 class="font-bold text-base">Pengaturan Profil Caleg & Dapil</h3>
                 <button onclick="closeModal('modal-config')" class="text-slate-300 hover:text-white p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <form onsubmit="saveConfigSettings(event)" class="p-6 space-y-3.5">
+                <div><label class="block text-xs font-bold text-blue-900 mb-1">Nama Caleg Utama</label><input type="text" id="cfg-caleg" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-bold"></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">Nama Partai Pengusung</label><input type="text" id="cfg-partai" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">Nama Kabupaten</label><input type="text" id="cfg-kabupaten" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
-                <div><label class="block text-xs font-bold text-blue-900 mb-1">Paslon 01 (Dukungan Kita)</label><input type="text" id="cfg-paslon1" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">Paslon 02</label><input type="text" id="cfg-paslon2" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">Paslon 03</label><input type="text" id="cfg-paslon3" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
-                <div class="bg-amber-50 p-3.5 rounded-xl border border-amber-200 flex items-start gap-3">
-                    <input type="checkbox" id="cfg-enable-kecamatan" class="mt-1 w-4 h-4 rounded text-blue-900">
-                    <label for="cfg-enable-kecamatan" class="text-xs text-slate-800 cursor-pointer">
-                        <strong class="block text-slate-900">Aktifkan Akun Admin Kecamatan (Opsional)</strong>
-                        Jika tidak dicentang (disarankan), jalur langsung berjalan dari <strong>Saksi TPS &rarr; Admin Desa &rarr; Super Admin</strong>.
-                    </label>
-                </div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">Nama Dapil DPR</label><input type="text" id="cfg-dapil" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('modal-config')" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100">Batal</button>
                     <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-900 text-white">Simpan Pengaturan</button>
@@ -318,20 +315,23 @@
         </div>
     </div>
 
-    <!-- Modal Edit Data Pendukung (Admin Desa) -->
+    <!-- Modal Penataan DPT & Koreksi Salah Input (Admin Desa) -->
     <div id="modal-edit-pemilih" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-blue-900 px-6 py-4 text-white flex items-center justify-between">
-                <h3 class="font-bold text-base">Edit Data Pendukung</h3>
+                <h3 class="font-bold text-base">Penataan DPT & Koreksi Data Pemilih</h3>
                 <button onclick="closeModal('modal-edit-pemilih')" class="text-slate-300 hover:text-white p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <form onsubmit="submitEditPemilih(event)" class="p-6 space-y-3.5">
                 <input type="hidden" id="edit-pemilih-id">
+                <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-900">
+                    <strong>Penataan DPT:</strong> Pindahkan pemilih ke TPS yang benar jika salah input oleh tim pengumpul KTP atau belum dikategorikan.
+                </div>
                 <div>
-                    <label class="block text-xs font-bold text-emerald-800 mb-1">Entitas TPS *</label>
+                    <label class="block text-xs font-bold text-emerald-800 mb-1">Penempatan TPS Resmi (DPT) *</label>
                     <select id="edit-pemilih-tps-id" required class="w-full px-3.5 py-2 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-sm"></select>
                 </div>
-                <div><label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap *</label><input type="text" id="edit-pemilih-nama" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
+                <div><label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Sesuai KTP *</label><input type="text" id="edit-pemilih-nama" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
                 <div><label class="block text-xs font-bold text-slate-700 mb-1">NIK KTP *</label><input type="text" id="edit-pemilih-nik" required pattern="[0-9]+" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 font-mono text-sm"></div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">Ganti Foto KTP (Opsional)</label>
@@ -339,34 +339,34 @@
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('modal-edit-pemilih')" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100">Batal</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-900 text-white">Simpan</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-900 text-white">Simpan Koreksi DPT</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Modal Edit Hasil Suara TPS (Admin Desa / Saksi TPS saat Draft) -->
+    <!-- Modal Edit Hasil Suara C1 TPS (Admin Saksi / Admin Desa saat Draft) -->
     <div id="modal-edit-suara" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-red-800 px-6 py-4 text-white flex items-center justify-between">
-                <h3 id="edit-suara-title" class="font-bold text-base">Edit Perolehan Suara TPS</h3>
+                <h3 id="edit-suara-title" class="font-bold text-base">Edit Perolehan Suara C1</h3>
                 <button onclick="closeModal('modal-edit-suara')" class="text-slate-300 hover:text-white p-1 rounded-lg"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             <form onsubmit="submitEditSuara(event)" class="p-6 space-y-3.5">
                 <input type="hidden" id="edit-suara-id">
                 <div class="grid grid-cols-2 gap-3">
-                    <div><label id="lbl-edit-paslon1" class="block text-xs font-bold text-blue-900 mb-1">Paslon 01 *</label><input type="number" min="0" id="edit-suara-1" required class="w-full px-3.5 py-2 rounded-xl border-2 border-blue-900/30 text-sm font-extrabold"></div>
-                    <div><label id="lbl-edit-paslon2" class="block text-xs font-bold text-amber-800 mb-1">Paslon 02 *</label><input type="number" min="0" id="edit-suara-2" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-bold"></div>
-                    <div><label id="lbl-edit-paslon3" class="block text-xs font-bold text-emerald-800 mb-1">Paslon 03 *</label><input type="number" min="0" id="edit-suara-3" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-bold"></div>
-                    <div><label class="block text-xs font-bold text-red-700 mb-1">Tidak Sah *</label><input type="number" min="0" id="edit-suara-tidaksah" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
+                    <div><label id="lbl-edit-syahfry" class="block text-xs font-bold text-blue-900 mb-1">Suara SYAHFRY *</label><input type="number" min="0" id="edit-suara-syahfry" required class="w-full px-3.5 py-2 rounded-xl border-2 border-blue-900/30 text-sm font-extrabold"></div>
+                    <div><label class="block text-xs font-bold text-amber-800 mb-1">Suara Rekan 1 Partai *</label><input type="number" min="0" id="edit-suara-rekan" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-bold"></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-1">Coblos Lambang Partai *</label><input type="number" min="0" id="edit-suara-partai" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm font-bold"></div>
+                    <div><label class="block text-xs font-bold text-red-700 mb-1">Suara Tidak Sah *</label><input type="number" min="0" id="edit-suara-tidaksah" required class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm"></div>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1">Ganti Foto Bukti C.Hasil Plano (Opsional)</label>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Ganti Foto Plano C1 (Opsional)</label>
                     <input type="file" id="edit-suara-foto" accept="image/*" class="w-full text-xs border border-slate-300 rounded-xl p-1.5">
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" onclick="closeModal('modal-edit-suara')" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-100">Batal</button>
-                    <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-red-600 text-white">Simpan Perubahan</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-red-600 text-white">Simpan Perubahan C1</button>
                 </div>
             </form>
         </div>
@@ -377,26 +377,26 @@
 
     <script>
         const GSHEET_URL_KEY = 'sipemilu_gsheet_webapp_url_v1';
-        const AUTH_SESSION_KEY = 'sipemilu_auth_session_v3_2';
+        const AUTH_SESSION_KEY = 'sipemilu_syahfry_session_v4_0';
 
         let appState = {
             config: {
                 kabupatenName: 'Kabupaten Labuhanbatu',
-                paslon1: 'Paslon 01 (Dukungan Kita)',
-                paslon2: 'Paslon 02',
-                paslon3: 'Paslon 03',
-                enableAdminKecamatan: 'false'
+                calegName: 'SYAHFRY',
+                partaiName: 'Partai Pengusung',
+                dapilName: 'Dapil DPR'
             },
             kecamatanList: [],
             usersList: [],
             logsList: [],
-            currentUser: null, // { id, username, role: 'super'|'kecamatan'|'desa'|'saksi', scopeId }
+            currentUser: null, // { id, username, role: 'super'|'desa'|'pengumpul'|'saksi', scopeId, displayName }
             authCredentials: null,
-            currentLevel: 'login', // 'login' | 'kabupaten' | 'kecamatan' | 'desa' | 'saksi'
+            currentLevel: 'login', // 'login' | 'kabupaten' | 'kecamatan' | 'desa' | 'pengumpul' | 'saksi'
             selectedKecamatanId: null,
             selectedDesaId: null,
-            desaActiveTab: 'suara',
+            desaActiveTab: 'pemilih',
             selectedTpsFilter: 'ALL',
+            selectedPengumpulFilter: 'ALL',
             searchQuery: '',
             gsheetUrl: ''
         };
@@ -409,8 +409,8 @@
             return String(unsafe).replace(/[<>&'"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '\'': '&apos;', '"': '&quot;' }[c]));
         }
 
-        function generateDummyKtpImage(nama, nik, desa = 'DESA', kecamatan = 'KECAMATAN', tps = 'TPS 01') {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="540" height="340" viewBox="0 0 540 340"><rect width="540" height="340" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/><rect x="0" y="0" width="540" height="58" rx="16" fill="#0369a1"/><text x="270" y="36" font-family="Arial" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">KTP PENDUKUNG • ${escapeXml(tps)}</text><text x="24" y="95" font-family="Courier New" font-size="16" font-weight="bold" fill="#0f172a">NIK : ${escapeXml(nik)}</text><text x="24" y="130" font-family="Arial" font-size="14" font-weight="bold" fill="#0f172a">Nama : ${escapeXml(nama.toUpperCase())}</text><text x="24" y="160" font-family="Arial" font-size="12" fill="#0f172a">Desa : ${escapeXml(desa.toUpperCase())}</text></svg>`;
+        function generateDummyKtpImage(nama, nik, desa = 'DESA', tps = 'TPS') {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="540" height="340" viewBox="0 0 540 340"><rect width="540" height="340" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/><rect x="0" y="0" width="540" height="58" rx="16" fill="#0369a1"/><text x="270" y="36" font-family="Arial" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">KTP PENDUKUNG ${escapeXml(appState.config.calegName)} • ${escapeXml(tps)}</text><text x="24" y="95" font-family="Courier New" font-size="16" font-weight="bold" fill="#0f172a">NIK : ${escapeXml(nik)}</text><text x="24" y="130" font-family="Arial" font-size="14" font-weight="bold" fill="#0f172a">Nama : ${escapeXml(nama.toUpperCase())}</text><text x="24" y="160" font-family="Arial" font-size="12" fill="#0f172a">Desa : ${escapeXml(desa.toUpperCase())}</text></svg>`;
             return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.trim());
         }
 
@@ -429,7 +429,7 @@
             toast.innerHTML = `<i data-lucide="info" class="w-4 h-4 flex-shrink-0"></i><span>${escapeHtml(message)}</span>`;
             container.appendChild(toast);
             lucide.createIcons();
-            setTimeout(() => toast.remove(), 3800);
+            setTimeout(() => toast.remove(), 4200);
         }
 
         function normalizeHierarchy(dataArray) {
@@ -441,7 +441,7 @@
                     suaraList: desa.suaraList || [],
                     pemilihList: (desa.pemilihList || []).map(p => {
                         const hasRealFoto = p.fotoKtp && p.fotoKtp.trim() !== '' && !p.fotoKtp.startsWith('data:image/svg+xml');
-                        return { ...p, hasRealFoto, fotoKtp: hasRealFoto ? p.fotoKtp : generateDummyKtpImage(p.nama, p.nik, desa.nama, kec.nama, p.tps) };
+                        return { ...p, hasRealFoto, fotoKtp: hasRealFoto ? p.fotoKtp : generateDummyKtpImage(p.nama, p.nik, desa.nama, p.tps) };
                     })
                 }))
             }));
@@ -482,14 +482,13 @@
 
         async function syncUserData(showNotif = true) {
             if (!appState.authCredentials) return;
-            const res = await postToGoogleSheet({ action: 'sync' }, 'Menyinkronkan data wilayah Anda...');
+            const res = await postToGoogleSheet({ action: 'sync' }, 'Menyinkronkan data...');
             if (res) {
                 render();
-                if (showNotif) showToast('Data wilayah diperbarui!', 'success');
+                if (showNotif) showToast('Data berhasil diperbarui!', 'success');
             }
         }
 
-        // Routing Ketat Berdasarkan Role (Isolasi Tampilan)
         function routeByRole() {
             const u = appState.currentUser;
             if (!u) {
@@ -497,23 +496,22 @@
                 return;
             }
             if (u.role === 'super') {
-                if (appState.currentLevel === 'login' || appState.currentLevel === 'saksi') {
+                if (['login', 'pengumpul', 'saksi'].includes(appState.currentLevel)) {
                     appState.currentLevel = 'kabupaten';
                 }
-            } else if (u.role === 'kecamatan') {
-                appState.selectedKecamatanId = u.scopeId;
-                if (appState.currentLevel !== 'desa') {
-                    appState.currentLevel = 'kecamatan';
-                }
             } else if (u.role === 'desa') {
-                // Admin Desa dikunci mutlak hanya di level 'desa' miliknya
                 const parentKec = appState.kecamatanList[0];
                 const myDesa = parentKec?.desaList[0];
                 appState.selectedKecamatanId = parentKec ? parentKec.id : null;
                 appState.selectedDesaId = myDesa ? myDesa.id : u.scopeId;
                 appState.currentLevel = 'desa';
+            } else if (u.role === 'pengumpul') {
+                const parentKec = appState.kecamatanList[0];
+                const myDesa = parentKec?.desaList[0];
+                appState.selectedKecamatanId = parentKec ? parentKec.id : null;
+                appState.selectedDesaId = myDesa ? myDesa.id : u.scopeId;
+                appState.currentLevel = 'pengumpul';
             } else if (u.role === 'saksi') {
-                // Saksi TPS dikunci mutlak hanya pada 1 TPS miliknya
                 appState.currentLevel = 'saksi';
             }
         }
@@ -521,7 +519,6 @@
         function goHomeByRole() {
             if (!appState.currentUser) return;
             if (appState.currentUser.role === 'super') navigateTo('kabupaten');
-            else if (appState.currentUser.role === 'kecamatan') navigateTo('kecamatan', appState.currentUser.scopeId);
             else routeByRole();
             render();
         }
@@ -532,7 +529,7 @@
             const pin = document.getElementById('inline-login-pin').value.trim();
             appState.authCredentials = { username, pin };
 
-            const res = await postToGoogleSheet({ action: 'login' }, 'Memverifikasi akun & mengisolasi wilayah...');
+            const res = await postToGoogleSheet({ action: 'login' }, 'Memverifikasi akun tim...');
             if (!res) {
                 appState.authCredentials = null;
                 return;
@@ -544,12 +541,10 @@
             routeByRole();
             updateAuthUI();
             render();
-            showToast(`Berhasil masuk sebagai ${appState.currentUser.username}`, 'success');
+            showToast(`Selamat bertugas, ${appState.currentUser.displayName || appState.currentUser.username}!`, 'success');
         }
 
-        function handleAuthButton() {
-            if (appState.currentUser) logoutUser();
-        }
+        function handleAuthButton() { if (appState.currentUser) logoutUser(); }
 
         function logoutUser() {
             appState.currentUser = null;
@@ -561,10 +556,11 @@
             sessionStorage.removeItem(AUTH_SESSION_KEY);
             updateAuthUI();
             render();
-            showToast('Anda telah keluar. Data wilayah dikunci.', 'info');
+            showToast('Anda telah keluar.', 'info');
         }
 
         function updateAuthUI() {
+            document.getElementById('header-caleg-title').textContent = `SIPEMILU CALEG ${appState.config.calegName.toUpperCase()}`;
             const btnAuth = document.getElementById('btn-admin-toggle');
             const btnRefresh = document.getElementById('btn-gsheet-refresh');
             const btnLog = document.getElementById('btn-audit-log');
@@ -576,7 +572,7 @@
 
             const u = appState.currentUser;
             if (!u) {
-                btnAuth.innerHTML = `<i data-lucide="lock" class="w-4 h-4 text-amber-400"></i><span>Terkunci (Login)</span>`;
+                btnAuth.innerHTML = `<i data-lucide="lock" class="w-4 h-4 text-amber-400"></i><span>Login Tim</span>`;
                 btnRefresh.classList.add('hidden');
                 btnLog.classList.add('hidden');
                 banner.classList.add('hidden');
@@ -587,37 +583,35 @@
             }
 
             const roleLabels = {
-                super: 'SUPER ADMIN KABUPATEN',
-                kecamatan: 'ADMIN KECAMATAN',
-                desa: 'ADMIN DESA (REKAP DESA)',
-                saksi: 'SAKSI TPS'
+                super: `CALEG ${appState.config.calegName.toUpperCase()} (SUPER ADMIN)`,
+                desa: 'ADMIN DESA (PENATA DPT & REKAP)',
+                pengumpul: 'ADMIN PENGUMPUL KTP',
+                saksi: 'ADMIN SAKSI TPS (PLANO C1)'
             };
 
-            btnAuth.innerHTML = `<i data-lucide="log-out" class="w-4 h-4 text-red-300"></i><span>Keluar (${escapeHtml(u.username)})</span>`;
+            btnAuth.innerHTML = `<i data-lucide="log-out" class="w-4 h-4 text-red-300"></i><span>Keluar</span>`;
             btnRefresh.classList.remove('hidden'); btnRefresh.classList.add('flex');
             btnLog.classList.remove('hidden'); btnLog.classList.add('flex');
             banner.classList.remove('hidden');
 
             document.getElementById('role-badge').textContent = roleLabels[u.role] || u.role.toUpperCase();
-            document.getElementById('role-user-info').textContent = `@${u.username}`;
+            document.getElementById('role-user-info').textContent = `${u.displayName} (@${u.username})`;
 
             let scopeDesc = '';
-            if (u.role === 'super') scopeDesc = '• Akses Penuh Seluruh Kabupaten & Rekap Global';
-            else if (u.role === 'kecamatan') scopeDesc = `• Terisolasi khusus ${appState.kecamatanList[0]?.nama || u.scopeId}`;
+            if (u.role === 'super') scopeDesc = `• Pantau Seluruh ${appState.config.kabupatenName}`;
             else if (u.role === 'desa') scopeDesc = `• Terisolasi khusus ${appState.kecamatanList[0]?.desaList[0]?.nama || u.scopeId}`;
-            else if (u.role === 'saksi') scopeDesc = `• Terisolasi khusus ${appState.kecamatanList[0]?.desaList[0]?.tpsList[0]?.nama || u.scopeId}`;
+            else if (u.role === 'pengumpul') scopeDesc = `• Wilayah ${appState.kecamatanList[0]?.desaList[0]?.nama || u.scopeId}`;
+            else if (u.role === 'saksi') scopeDesc = `• Tugas Khusus ${appState.kecamatanList[0]?.desaList[0]?.tpsList[0]?.nama || u.scopeId}`;
             document.getElementById('role-scope-desc').textContent = scopeDesc;
 
-            // Tombol Kelola Akun (Super Admin -> Desa/Kecamatan/Saksi; Admin Desa -> Saksi TPS)
-            if (u.role === 'super' || u.role === 'kecamatan' || u.role === 'desa') {
+            if (u.role === 'super' || u.role === 'desa') {
                 btnUsers.classList.remove('hidden'); btnUsers.classList.add('flex');
                 document.getElementById('btn-manage-users-label').textContent =
-                    u.role === 'desa' ? 'Buat Akun Saksi TPS' : 'Kelola Akun Petugas';
+                    u.role === 'desa' ? 'Akun Tim KTP & Saksi' : 'Kelola Akun Tim';
             } else {
                 btnUsers.classList.add('hidden');
             }
 
-            // Pengaturan Global & Statistik Global HANYA untuk Super Admin
             if (u.role === 'super') {
                 btnCfg.classList.remove('hidden'); btnCfg.classList.add('flex');
                 superStats.classList.remove('hidden');
@@ -625,25 +619,24 @@
             } else {
                 btnCfg.classList.add('hidden');
                 superStats.classList.add('hidden');
-                bcBar.classList.toggle('hidden', u.role !== 'kecamatan');
+                bcBar.classList.add('hidden');
             }
             lucide.createIcons();
         }
 
-        // Manajemen Akun Petugas
+        // Manajemen Akun Tim
         function openUsersModal() {
             const u = appState.currentUser;
             const roleSelect = document.getElementById('user-form-role');
             if (u.role === 'super') {
-                let opts = `<option value="desa">Admin Desa (Tukang Rekap Desa)</option><option value="saksi">Saksi TPS</option>`;
-                if (appState.config.enableAdminKecamatan === 'true') {
-                    opts = `<option value="kecamatan">Admin Kecamatan</option>` + opts;
-                }
-                roleSelect.innerHTML = opts;
-            } else if (u.role === 'kecamatan') {
-                roleSelect.innerHTML = `<option value="desa">Admin Desa</option><option value="saksi">Saksi TPS</option>`;
+                roleSelect.innerHTML = `
+                    <option value="desa">Admin Desa (Penata DPT & Rekap Desa)</option>
+                    <option value="pengumpul">Admin Pengumpul KTP</option>
+                    <option value="saksi">Admin Saksi TPS (Plano C1)</option>`;
             } else if (u.role === 'desa') {
-                roleSelect.innerHTML = `<option value="saksi">Saksi TPS (1 TPS)</option>`;
+                roleSelect.innerHTML = `
+                    <option value="pengumpul">Admin Pengumpul KTP (Tim Lapangan)</option>
+                    <option value="saksi">Admin Saksi TPS (1 TPS)</option>`;
             }
             populateUserScopeOptions();
             renderUsersTable();
@@ -653,9 +646,7 @@
         function populateUserScopeOptions() {
             const role = document.getElementById('user-form-role').value;
             const scopeSelect = document.getElementById('user-form-scope');
-            if (role === 'kecamatan') {
-                scopeSelect.innerHTML = appState.kecamatanList.map(k => `<option value="${k.id}">${escapeHtml(k.nama)}</option>`).join('');
-            } else if (role === 'desa') {
+            if (role === 'desa' || role === 'pengumpul') {
                 let opts = '';
                 appState.kecamatanList.forEach(k => k.desaList.forEach(d => {
                     opts += `<option value="${d.id}">${escapeHtml(d.nama)} (${escapeHtml(k.nama)})</option>`;
@@ -666,7 +657,7 @@
                 appState.kecamatanList.forEach(k => k.desaList.forEach(d => (d.tpsList || []).forEach(t => {
                     opts += `<option value="${t.id}">${escapeHtml(t.nama)} — ${escapeHtml(d.nama)}</option>`;
                 })));
-                scopeSelect.innerHTML = opts || `<option value="">Belum ada entitas TPS (Buat di tab Daftar TPS dulu)</option>`;
+                scopeSelect.innerHTML = opts || `<option value="">Belum ada TPS (Tambahkan di tab Daftar TPS dulu)</option>`;
             }
         }
 
@@ -676,10 +667,15 @@
                 tbody.innerHTML = `<tr><td colspan="4" class="py-4 px-3 text-center text-slate-500">Belum ada akun petugas di wilayah ini.</td></tr>`;
                 return;
             }
+            const badgeRole = {
+                super: 'SUPER ADMIN',
+                desa: 'ADMIN DESA',
+                pengumpul: 'PENGUMPUL KTP',
+                saksi: 'SAKSI TPS'
+            };
             tbody.innerHTML = appState.usersList.map(u => {
                 let scopeLabel = u.scopeId || 'Kabupaten';
                 appState.kecamatanList.forEach(k => {
-                    if (k.id === u.scopeId) scopeLabel = k.nama;
                     k.desaList.forEach(d => {
                         if (d.id === u.scopeId) scopeLabel = `${d.nama} (${k.nama})`;
                         (d.tpsList || []).forEach(t => {
@@ -689,11 +685,11 @@
                 });
                 return `
                 <tr>
-                    <td class="py-2.5 px-3 font-bold">${escapeHtml(u.username)}</td>
-                    <td class="py-2.5 px-3 uppercase text-xs font-bold text-blue-900">${escapeHtml(u.role)}</td>
-                    <td class="py-2.5 px-3 text-slate-600">${escapeHtml(scopeLabel)}</td>
+                    <td class="py-2.5 px-3"><strong class="block text-slate-900">${escapeHtml(u.displayName)}</strong><span class="text-xs font-mono text-slate-500">@${escapeHtml(u.username)}</span></td>
+                    <td class="py-2.5 px-3 text-xs font-extrabold text-blue-900">${badgeRole[u.role] || u.role}</td>
+                    <td class="py-2.5 px-3 text-slate-600 text-xs">${escapeHtml(scopeLabel)}</td>
                     <td class="py-2.5 px-3 text-center">
-                        ${u.id !== appState.currentUser?.id ? `<button onclick="deleteUserAccount('${u.id}', '${escapeHtml(u.username)}')" class="text-red-600 hover:underline font-bold">Hapus</button>` : '<span class="text-slate-400">Aktif</span>'}
+                        ${u.id !== appState.currentUser?.id ? `<button onclick="deleteUserAccount('${u.id}', '${escapeHtml(u.username)}')" class="text-red-600 hover:underline font-bold text-xs">Hapus</button>` : '<span class="text-slate-400 text-xs">Aktif</span>'}
                     </td>
                 </tr>`;
             }).join('');
@@ -703,18 +699,17 @@
             event.preventDefault();
             const role = document.getElementById('user-form-role').value;
             const scopeId = document.getElementById('user-form-scope').value;
+            const displayName = document.getElementById('user-form-display').value.trim();
             const username = document.getElementById('user-form-username').value.trim();
             const pin = document.getElementById('user-form-pin').value.trim();
-            if (!scopeId && role !== 'super') {
-                showToast('Pilih wilayah / TPS terlebih dahulu!', 'error');
-                return;
-            }
-            const res = await postToGoogleSheet({ action: 'addUser', role, scopeId, username, pin }, 'Membuat akun...');
+            if (!scopeId) { showToast('Pilih wilayah desa / TPS terlebih dahulu!', 'error'); return; }
+            const res = await postToGoogleSheet({ action: 'addUser', role, scopeId, displayName, username, pin }, 'Membuat akun tim...');
             if (res) {
+                document.getElementById('user-form-display').value = '';
                 document.getElementById('user-form-username').value = '';
                 document.getElementById('user-form-pin').value = '';
                 renderUsersTable();
-                showToast(`Akun "${username}" berhasil dibuat!`, 'success');
+                showToast(`Akun "${displayName}" (@${username}) berhasil dibuat!`, 'success');
             }
         }
 
@@ -760,11 +755,10 @@
         }
 
         function openConfigModal() {
+            document.getElementById('cfg-caleg').value = appState.config.calegName;
+            document.getElementById('cfg-partai').value = appState.config.partaiName;
             document.getElementById('cfg-kabupaten').value = appState.config.kabupatenName;
-            document.getElementById('cfg-paslon1').value = appState.config.paslon1;
-            document.getElementById('cfg-paslon2').value = appState.config.paslon2;
-            document.getElementById('cfg-paslon3').value = appState.config.paslon3;
-            document.getElementById('cfg-enable-kecamatan').checked = appState.config.enableAdminKecamatan === 'true';
+            document.getElementById('cfg-dapil').value = appState.config.dapilName;
             openModal('modal-config');
         }
 
@@ -773,11 +767,10 @@
             closeModal('modal-config');
             const res = await postToGoogleSheet({
                 action: 'updateConfig',
+                calegName: document.getElementById('cfg-caleg').value.trim(),
+                partaiName: document.getElementById('cfg-partai').value.trim(),
                 kabupatenName: document.getElementById('cfg-kabupaten').value.trim(),
-                paslon1: document.getElementById('cfg-paslon1').value.trim(),
-                paslon2: document.getElementById('cfg-paslon2').value.trim(),
-                paslon3: document.getElementById('cfg-paslon3').value.trim(),
-                enableAdminKecamatan: document.getElementById('cfg-enable-kecamatan').checked
+                dapilName: document.getElementById('cfg-dapil').value.trim()
             }, 'Menyimpan pengaturan...');
             if (res) { render(); showToast('Pengaturan diperbarui!', 'success'); }
         }
@@ -812,16 +805,12 @@
         }
 
         function navigateTo(level, kecamatanId = null, desaId = null) {
-            const u = appState.currentUser;
-            if (!u) return;
-            // Cegah navigasi keluar dari cakupan wilayah user
-            if (u.role === 'desa' || u.role === 'saksi') return;
-            if (u.role === 'kecamatan' && level === 'kabupaten') return;
-
+            if (appState.currentUser?.role !== 'super') return;
             appState.currentLevel = level;
             appState.selectedKecamatanId = kecamatanId;
             appState.selectedDesaId = desaId;
             appState.selectedTpsFilter = 'ALL';
+            appState.selectedPengumpulFilter = 'ALL';
             appState.searchQuery = '';
             render();
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -829,22 +818,19 @@
 
         function switchDesaTab(tab) { appState.desaActiveTab = tab; renderViewContentOnly(); }
         function setTpsFilter(tpsId) { appState.selectedTpsFilter = tpsId; renderViewContentOnly(); }
+        function setPengumpulFilter(u) { appState.selectedPengumpulFilter = u; renderViewContentOnly(); }
         function handleSearchInput(val) { appState.searchQuery = val.toLowerCase(); renderViewContentOnly(); }
 
         function getActiveKecamatan() { return appState.kecamatanList.find(k => k.id === appState.selectedKecamatanId) || appState.kecamatanList[0] || null; }
         function getActiveDesa() { const k = getActiveKecamatan(); return k ? (k.desaList.find(d => d.id === appState.selectedDesaId) || k.desaList[0] || null) : null; }
 
         function renderBreadcrumbs() {
-            if (appState.currentUser?.role !== 'super' && appState.currentUser?.role !== 'kecamatan') return;
+            if (appState.currentUser?.role !== 'super') return;
             const list = document.getElementById('breadcrumb-list');
             const kec = getActiveKecamatan(), desa = getActiveDesa();
-            let html = '';
-            if (appState.currentUser.role === 'super') {
-                html += `<li><button onclick="navigateTo('kabupaten')" class="px-2.5 py-1 rounded-lg ${appState.currentLevel === 'kabupaten' ? 'bg-blue-900 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'}">${escapeHtml(appState.config.kabupatenName)}</button></li>`;
-            }
+            let html = `<li><button onclick="navigateTo('kabupaten')" class="px-2.5 py-1 rounded-lg ${appState.currentLevel === 'kabupaten' ? 'bg-blue-900 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'}">${escapeHtml(appState.config.kabupatenName)}</button></li>`;
             if (kec && (appState.currentLevel === 'kecamatan' || appState.currentLevel === 'desa')) {
-                if (html) html += `<li class="text-slate-400">/</li>`;
-                html += `<li><button onclick="navigateTo('kecamatan', '${kec.id}')" class="px-2.5 py-1 rounded-lg ${appState.currentLevel === 'kecamatan' ? 'bg-blue-900 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'}">${escapeHtml(kec.nama)}</button></li>`;
+                html += `<li class="text-slate-400">/</li><li><button onclick="navigateTo('kecamatan', '${kec.id}')" class="px-2.5 py-1 rounded-lg ${appState.currentLevel === 'kecamatan' ? 'bg-blue-900 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'}">${escapeHtml(kec.nama)}</button></li>`;
             }
             if (kec && desa && appState.currentLevel === 'desa') {
                 html += `<li class="text-slate-400">/</li><li><span class="px-2.5 py-1 rounded-lg bg-blue-900 text-white font-bold">${escapeHtml(desa.nama)}</span></li>`;
@@ -852,39 +838,42 @@
             list.innerHTML = html;
         }
 
-        // Statistik Global HANYA dihitung dan ditampilkan untuk Super Admin
         function updateSuperStatistics() {
             if (appState.currentUser?.role !== 'super') return;
-            let totalDesa = 0, totalTps = 0, totalPemilih = 0, s1 = 0, s2 = 0, s3 = 0, tidakSah = 0;
+            let totalDesa = 0, totalPemilih = 0, sSyahfry = 0, sRekan = 0, sPartai = 0, tidakSah = 0;
             appState.kecamatanList.forEach(kec => {
                 totalDesa += kec.desaList.length;
                 kec.desaList.forEach(desa => {
-                    totalTps += (desa.tpsList || []).length;
                     totalPemilih += desa.pemilihList.length;
-                    (desa.suaraList || []).forEach(s => { s1 += s.suara1; s2 += s.suara2; s3 += s.suara3; tidakSah += s.tidakSah; });
+                    (desa.suaraList || []).forEach(s => {
+                        sSyahfry += s.suaraSyahfry;
+                        sRekan += s.suaraRekan;
+                        sPartai += s.suaraPartai;
+                        tidakSah += s.tidakSah;
+                    });
                 });
             });
-            const totalSah = s1 + s2 + s3;
-            document.getElementById('stat-kecamatan').textContent = appState.kecamatanList.length;
-            document.getElementById('stat-desa-tps').textContent = `${totalDesa} / ${totalTps}`;
+            const totalSahPartai = sSyahfry + sRekan + sPartai;
+            document.getElementById('stat-kec-desa').textContent = `${appState.kecamatanList.length} / ${totalDesa}`;
             document.getElementById('stat-pemilih').textContent = totalPemilih.toLocaleString('id-ID');
-            document.getElementById('stat-suara').textContent = totalSah.toLocaleString('id-ID');
+            document.getElementById('stat-suara-syahfry').textContent = sSyahfry.toLocaleString('id-ID');
+            document.getElementById('stat-suara-partai').textContent = totalSahPartai.toLocaleString('id-ID');
 
             const summaryEl = document.getElementById('global-vote-summary');
-            if (totalSah > 0 || tidakSah > 0) {
-                const p1 = totalSah ? ((s1 / totalSah) * 100).toFixed(1) : 0;
-                const p2 = totalSah ? ((s2 / totalSah) * 100).toFixed(1) : 0;
-                const p3 = totalSah ? ((s3 / totalSah) * 100).toFixed(1) : 0;
+            if (totalSahPartai > 0 || tidakSah > 0) {
+                const pSyahfry = totalSahPartai ? ((sSyahfry / totalSahPartai) * 100).toFixed(1) : 0;
+                const pRekan = totalSahPartai ? ((sRekan / totalSahPartai) * 100).toFixed(1) : 0;
+                const pPartai = totalSahPartai ? ((sPartai / totalSahPartai) * 100).toFixed(1) : 0;
                 summaryEl.classList.remove('hidden');
                 summaryEl.innerHTML = `
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                        <h3 class="text-sm font-extrabold text-slate-900">Rekapitulasi Keseluruhan ${escapeHtml(appState.config.kabupatenName)} (Khusus Super Admin)</h3>
-                        <span class="text-xs font-semibold text-slate-500">Basis KTP: <strong class="text-emerald-700">${totalPemilih}</strong> • Suara Sah: <strong>${totalSah.toLocaleString('id-ID')}</strong></span>
+                        <h3 class="text-sm font-extrabold text-slate-900">Perolehan Suara Internal ${escapeHtml(appState.config.partaiName)} (${escapeHtml(appState.config.kabupatenName)})</h3>
+                        <span class="text-xs font-semibold text-slate-500">Total KTP Dukungan: <strong class="text-emerald-700">${totalPemilih}</strong> • Total Sah Partai: <strong>${totalSahPartai.toLocaleString('id-ID')}</strong></span>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div class="p-3 rounded-xl bg-blue-50 border border-blue-200"><div class="flex justify-between text-xs font-bold text-blue-950"><span>01. ${escapeHtml(appState.config.paslon1)}</span><span>${p1}%</span></div><p class="text-lg font-extrabold text-blue-900 mt-1">${s1.toLocaleString('id-ID')} suara</p></div>
-                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><div class="flex justify-between text-xs font-bold text-amber-950"><span>02. ${escapeHtml(appState.config.paslon2)}</span><span>${p2}%</span></div><p class="text-lg font-extrabold text-amber-700 mt-1">${s2.toLocaleString('id-ID')} suara</p></div>
-                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200"><div class="flex justify-between text-xs font-bold text-emerald-950"><span>03. ${escapeHtml(appState.config.paslon3)}</span><span>${p3}%</span></div><p class="text-lg font-extrabold text-emerald-800 mt-1">${s3.toLocaleString('id-ID')} suara</p></div>
+                        <div class="p-3 rounded-xl bg-blue-50 border-2 border-blue-900/30"><div class="flex justify-between text-xs font-bold text-blue-950"><span>Caleg ${escapeHtml(appState.config.calegName)}</span><span>${pSyahfry}%</span></div><p class="text-lg font-extrabold text-blue-900 mt-1">${sSyahfry.toLocaleString('id-ID')} suara</p></div>
+                        <div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><div class="flex justify-between text-xs font-bold text-amber-950"><span>Rekan Caleg 1 Partai</span><span>${pRekan}%</span></div><p class="text-lg font-extrabold text-amber-700 mt-1">${sRekan.toLocaleString('id-ID')} suara</p></div>
+                        <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200"><div class="flex justify-between text-xs font-bold text-emerald-950"><span>Coblos Lambang Partai</span><span>${pPartai}%</span></div><p class="text-lg font-extrabold text-emerald-800 mt-1">${sPartai.toLocaleString('id-ID')} suara</p></div>
                     </div>`;
             } else {
                 summaryEl.classList.add('hidden');
@@ -917,7 +906,7 @@
         }
 
         function handleDeleteKecamatan(kecId, kecNama) {
-            openConfirmModal('Hapus Bertingkat Kecamatan?', `PERINGATAN: Menghapus "${kecNama}" akan menghapus PERMANEN seluruh Desa, TPS, Pendukung, dan Suara di dalamnya!`, async () => {
+            openConfirmModal('Hapus Bertingkat Kecamatan?', `PERINGATAN: Menghapus "${kecNama}" akan menghapus PERMANEN seluruh Desa, TPS, KTP, dan C1 di dalamnya!`, async () => {
                 const res = await postToGoogleSheet({ action: 'deleteKecamatan', id: kecId }, `Menghapus ${kecNama}...`);
                 if (res) { render(); showToast(`${kecNama} dihapus.`, 'info'); }
             }, kecNama);
@@ -934,7 +923,7 @@
         }
 
         function handleDeleteDesa(desaId, desaNama) {
-            openConfirmModal('Hapus Desa?', `Hapus "${desaNama}" beserta seluruh TPS, Pemilih, dan Suara di dalamnya?`, async () => {
+            openConfirmModal('Hapus Desa?', `Hapus "${desaNama}" beserta seluruh TPS, KTP, dan C1 di dalamnya?`, async () => {
                 const res = await postToGoogleSheet({ action: 'deleteDesa', id: desaId }, `Menghapus ${desaNama}...`);
                 if (res) { render(); showToast(`${desaNama} dihapus.`, 'info'); }
             });
@@ -945,16 +934,17 @@
             const kec = getActiveKecamatan(), desa = getActiveDesa();
             const nama = document.getElementById('input-tps-nama').value.trim();
             const res = await postToGoogleSheet({ action: 'addTps', id: 'tps-' + Date.now(), kecamatanId: kec.id, desaId: desa.id, nama }, `Menambahkan ${nama}...`);
-            if (res) { render(); showToast(`Entitas TPS berhasil ditambahkan.`, 'success'); }
+            if (res) { render(); showToast(`Entitas TPS ditambahkan.`, 'success'); }
         }
 
         function handleDeleteTps(tpsId, tpsNama) {
-            openConfirmModal('Hapus Entitas TPS?', `Hapus "${tpsNama}" beserta data pemilih dan hasil suara pada TPS ini?`, async () => {
+            openConfirmModal('Hapus Entitas TPS?', `Hapus "${tpsNama}"? Data KTP pada TPS ini akan dipindah ke antrean "Belum Dikategorikan" agar tetap aman.`, async () => {
                 const res = await postToGoogleSheet({ action: 'deleteTps', id: tpsId }, `Menghapus ${tpsNama}...`);
                 if (res) { render(); showToast(`${tpsNama} dihapus.`, 'info'); }
             });
         }
 
+        // Input KTP Pemilih (Admin Pengumpul KTP & Admin Desa)
         function handleAddPemilih(event) {
             event.preventDefault();
             const kec = getActiveKecamatan(), desa = getActiveDesa();
@@ -964,8 +954,20 @@
             const fileInput = document.getElementById('input-pemilih-foto');
 
             const finalizeSave = async (fotoPayload) => {
-                const res = await postToGoogleSheet({ action: 'addPemilih', id: 'pemilih-' + Date.now(), kecamatanId: kec.id, desaId: desa.id, tpsId, nama, nik, fotoKtp: fotoPayload }, `Menyimpan ${nama}...`);
-                if (res) { render(); showToast(`Pendukung "${nama}" tersimpan!`, 'success'); }
+                const res = await postToGoogleSheet({
+                    action: 'addPemilih',
+                    id: 'pemilih-' + Date.now(),
+                    kecamatanId: kec.id,
+                    desaId: desa.id,
+                    tpsId,
+                    nama,
+                    nik,
+                    fotoKtp: fotoPayload
+                }, `Menyimpan KTP ${nama}...`);
+                if (res) {
+                    render();
+                    showToast(`KTP "${nama}" berhasil disetor!`, 'success');
+                }
             };
 
             if (fileInput.files && fileInput.files[0]) {
@@ -982,7 +984,11 @@
             const p = desa?.pemilihList.find(x => x.id === pemilihId);
             if (!p) return;
             document.getElementById('edit-pemilih-id').value = p.id;
-            document.getElementById('edit-pemilih-tps-id').innerHTML = (desa.tpsList || []).map(t => `<option value="${t.id}" ${t.id === p.tpsId ? 'selected' : ''}>${escapeHtml(t.nama)}</option>`).join('');
+            const tpsOptions = [
+                `<option value="UNASSIGNED" ${p.tpsId === 'UNASSIGNED' ? 'selected' : ''}>-- Belum Dikategorikan / Cek DPT --</option>`,
+                ...(desa.tpsList || []).map(t => `<option value="${t.id}" ${t.id === p.tpsId ? 'selected' : ''}>${escapeHtml(t.nama)}</option>`)
+            ];
+            document.getElementById('edit-pemilih-tps-id').innerHTML = tpsOptions.join('');
             document.getElementById('edit-pemilih-nama').value = p.nama;
             document.getElementById('edit-pemilih-nik').value = p.nik;
             document.getElementById('edit-pemilih-foto').value = '';
@@ -1001,8 +1007,8 @@
                 closeModal('modal-edit-pemilih');
                 const payload = { action: 'editPemilih', id, tpsId, nama, nik };
                 if (fotoPayload !== undefined) payload.fotoKtp = fotoPayload;
-                const res = await postToGoogleSheet(payload, `Memperbarui ${nama}...`);
-                if (res) { render(); showToast(`Data "${nama}" diperbarui!`, 'success'); }
+                const res = await postToGoogleSheet(payload, `Menata DPT ${nama}...`);
+                if (res) { render(); showToast(`Data DPT "${nama}" diperbarui!`, 'success'); }
             };
 
             if (fileInput.files && fileInput.files[0]) {
@@ -1015,13 +1021,13 @@
         }
 
         function handleDeletePemilih(pemilihId, pemilihNama) {
-            openConfirmModal('Hapus Pendukung?', `Hapus data atas nama "${pemilihNama}"?`, async () => {
+            openConfirmModal('Hapus Data Pendukung?', `Hapus data atas nama "${pemilihNama}"?`, async () => {
                 const res = await postToGoogleSheet({ action: 'deletePemilih', id: pemilihId }, `Menghapus ${pemilihNama}...`);
                 if (res) { render(); showToast(`Data "${pemilihNama}" dihapus.`, 'info'); }
             });
         }
 
-        // Input Suara TPS (Dipakai oleh Saksi TPS maupun Admin Desa)
+        // Input Suara C1 TPS (Admin Saksi TPS & Admin Desa)
         function handleAddSuara(event, fixedTpsId = null) {
             event.preventDefault();
             const kec = getActiveKecamatan(), desa = getActiveDesa();
@@ -1035,13 +1041,13 @@
                     kecamatanId: kec.id,
                     desaId: desa.id,
                     tpsId,
-                    suara1: parseInt(document.getElementById('input-suara-1').value, 10) || 0,
-                    suara2: parseInt(document.getElementById('input-suara-2').value, 10) || 0,
-                    suara3: parseInt(document.getElementById('input-suara-3').value, 10) || 0,
+                    suaraSyahfry: parseInt(document.getElementById('input-suara-syahfry').value, 10) || 0,
+                    suaraRekan: parseInt(document.getElementById('input-suara-rekan').value, 10) || 0,
+                    suaraPartai: parseInt(document.getElementById('input-suara-partai').value, 10) || 0,
                     tidakSah: parseInt(document.getElementById('input-suara-tidaksah').value, 10) || 0,
                     fotoCHasil
-                }, 'Mengirim perolehan suara TPS...');
-                if (res) { render(); showToast('Hasil suara TPS berhasil dikirim (Draft)!', 'success'); }
+                }, 'Mengirim laporan Plano C1 TPS...');
+                if (res) { render(); showToast('Laporan Plano C1 TPS berhasil dikirim!', 'success'); }
             };
 
             if (fileInput && fileInput.files && fileInput.files[0]) {
@@ -1058,13 +1064,11 @@
             const s = (desa?.suaraList || []).find(x => x.id === suaraId);
             if (!s) return;
             document.getElementById('edit-suara-id').value = s.id;
-            document.getElementById('edit-suara-title').textContent = `Edit Suara • ${s.tps}`;
-            document.getElementById('lbl-edit-paslon1').textContent = `${appState.config.paslon1} *`;
-            document.getElementById('lbl-edit-paslon2').textContent = `${appState.config.paslon2} *`;
-            document.getElementById('lbl-edit-paslon3').textContent = `${appState.config.paslon3} *`;
-            document.getElementById('edit-suara-1').value = s.suara1;
-            document.getElementById('edit-suara-2').value = s.suara2;
-            document.getElementById('edit-suara-3').value = s.suara3;
+            document.getElementById('edit-suara-title').textContent = `Edit Suara C1 • ${s.tps}`;
+            document.getElementById('lbl-edit-syahfry').textContent = `Suara ${appState.config.calegName} *`;
+            document.getElementById('edit-suara-syahfry').value = s.suaraSyahfry;
+            document.getElementById('edit-suara-rekan').value = s.suaraRekan;
+            document.getElementById('edit-suara-partai').value = s.suaraPartai;
             document.getElementById('edit-suara-tidaksah').value = s.tidakSah;
             document.getElementById('edit-suara-foto').value = '';
             openModal('modal-edit-suara');
@@ -1080,14 +1084,14 @@
                 const payload = {
                     action: 'editSuara',
                     id,
-                    suara1: parseInt(document.getElementById('edit-suara-1').value, 10) || 0,
-                    suara2: parseInt(document.getElementById('edit-suara-2').value, 10) || 0,
-                    suara3: parseInt(document.getElementById('edit-suara-3').value, 10) || 0,
+                    suaraSyahfry: parseInt(document.getElementById('edit-suara-syahfry').value, 10) || 0,
+                    suaraRekan: parseInt(document.getElementById('edit-suara-rekan').value, 10) || 0,
+                    suaraPartai: parseInt(document.getElementById('edit-suara-partai').value, 10) || 0,
                     tidakSah: parseInt(document.getElementById('edit-suara-tidaksah').value, 10) || 0
                 };
                 if (fotoCHasil !== undefined) payload.fotoCHasil = fotoCHasil;
-                const res = await postToGoogleSheet(payload, 'Memperbarui suara TPS...');
-                if (res) { render(); showToast('Data suara TPS diperbarui!', 'success'); }
+                const res = await postToGoogleSheet(payload, 'Memperbarui laporan C1...');
+                if (res) { render(); showToast('Laporan C1 TPS diperbarui!', 'success'); }
             };
 
             if (fileInput && fileInput.files && fileInput.files[0]) {
@@ -1101,13 +1105,13 @@
 
         async function toggleSuaraStatus(suaraId, newStatus, tpsName) {
             const res = await postToGoogleSheet({ action: 'setSuaraStatus', id: suaraId, status: newStatus }, `Mengubah status ${tpsName} ke ${newStatus}...`);
-            if (res) { render(); showToast(`Status ${tpsName} diubah menjadi ${newStatus}.`, 'success'); }
+            if (res) { render(); showToast(`Status C1 ${tpsName} diubah menjadi ${newStatus}.`, 'success'); }
         }
 
         function handleDeleteSuara(suaraId, tpsName) {
-            openConfirmModal('Hapus Data Suara?', `Hapus catatan perolehan suara "${tpsName}"?`, async () => {
+            openConfirmModal('Hapus Laporan C1?', `Hapus catatan perolehan suara C1 "${tpsName}"?`, async () => {
                 const res = await postToGoogleSheet({ action: 'deleteSuara', id: suaraId }, `Menghapus ${tpsName}...`);
-                if (res) { render(); showToast(`Data suara ${tpsName} dihapus.`, 'info'); }
+                if (res) { render(); showToast(`Laporan C1 ${tpsName} dihapus.`, 'info'); }
             });
         }
 
@@ -1132,11 +1136,12 @@
             else if (appState.currentLevel === 'kabupaten') container.innerHTML = renderKabupatenView();
             else if (appState.currentLevel === 'kecamatan') container.innerHTML = renderKecamatanView();
             else if (appState.currentLevel === 'desa') container.innerHTML = renderDesaView();
+            else if (appState.currentLevel === 'pengumpul') container.innerHTML = renderPengumpulKtpView();
             else if (appState.currentLevel === 'saksi') container.innerHTML = renderSaksiTpsView();
             lucide.createIcons();
         }
 
-        // GERBANG LOGIN (Data terkunci mutlak sebelum login)
+        // GERBANG LOGIN
         function renderLoginGateView() {
             return `
                 <div class="max-w-md mx-auto mt-4 sm:mt-8 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
@@ -1144,8 +1149,8 @@
                         <div class="w-14 h-14 rounded-2xl bg-amber-500 text-[#0f2537] mx-auto flex items-center justify-center shadow-md mb-3">
                             <i data-lucide="shield-lock" class="w-8 h-8 stroke-[2.2]"></i>
                         </div>
-                        <h2 class="text-xl font-extrabold">Akses Terbatas SIPEMILU</h2>
-                        <p class="text-xs text-blue-200 mt-1">Setiap Admin Desa & Saksi TPS hanya dapat mengakses wilayah tugasnya masing-masing.</p>
+                        <h2 class="text-xl font-extrabold">Login Tim Pemenangan ${escapeHtml(appState.config.calegName)}</h2>
+                        <p class="text-xs text-blue-200 mt-1">Admin Desa • Admin Pengumpul KTP • Admin Saksi TPS</p>
                     </div>
                     <form onsubmit="submitInlineLogin(event)" class="p-6 space-y-4">
                         ${!appState.gsheetUrl ? `
@@ -1155,7 +1160,7 @@
                         ` : ''}
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Username Petugas</label>
-                            <input type="text" id="inline-login-username" required placeholder="Contoh: saksi_01 / desa_kpadang / superadmin"
+                            <input type="text" id="inline-login-username" required placeholder="Masukkan username Anda"
                                 class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-900 focus:outline-none">
                         </div>
                         <div>
@@ -1170,7 +1175,89 @@
                 </div>`;
         }
 
-        // TAMPILAN KHUSUS SAKSI TPS (TERISOLASI 1 TPS SAJA)
+        // PORTAL ADMIN PENGUMPUL KTP (Tim Lapangan ~10 orang per desa)
+        function renderPengumpulKtpView() {
+            const kec = getActiveKecamatan(), desa = getActiveDesa();
+            if (!kec || !desa) return '';
+            const tpsList = desa.tpsList || [];
+            const myList = desa.pemilihList || [];
+
+            return `
+                <div class="max-w-3xl mx-auto space-y-6">
+                    <div class="bg-gradient-to-r from-[#0f2537] to-blue-900 rounded-2xl p-6 text-white shadow-md">
+                        <span class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 text-[11px] font-extrabold uppercase">TIM PENGUMPUL KTP • ${escapeHtml(appState.config.calegName)}</span>
+                        <h2 class="text-xl sm:text-2xl font-extrabold mt-2">${escapeHtml(desa.nama)} (${escapeHtml(kec.nama)})</h2>
+                        <p class="text-xs sm:text-sm text-blue-200 mt-1">Total KTP Dukungan Setoran Anda: <strong class="text-amber-300">${myList.length} Orang</strong></p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-blue-900/20 shadow-sm">
+                        <h3 class="font-extrabold text-base text-slate-900 mb-1">Input KTP Pendukung Baru</h3>
+                        <p class="text-xs text-slate-500 mb-4">Pilih TPS pemilih (jika ragu/belum dicek DPT, pilih "Belum Dikategorikan" agar ditata Admin Desa).</p>
+                        <form onsubmit="handleAddPemilih(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-emerald-800 mb-1">Pilih TPS Pemilih *</label>
+                                    <select id="input-pemilih-tps-id" required class="w-full px-3.5 py-2.5 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-sm">
+                                        ${tpsList.map(t => `<option value="${t.id}">${escapeHtml(t.nama)}</option>`).join('')}
+                                        <option value="UNASSIGNED">-- Belum Tahu TPS / Belum Dikategorikan --</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">NIK KTP (16 Digit) *</label>
+                                    <input type="text" id="input-pemilih-nik" required pattern="[0-9]+" placeholder="1210xxxxxxxxxxxx" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Sesuai KTP *</label>
+                                    <input type="text" id="input-pemilih-nama" required placeholder="Contoh: Juminten" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">Foto / Kamera KTP</label>
+                                    <input type="file" id="input-pemilih-foto" accept="image/*" capture="environment" class="w-full text-xs border border-slate-300 rounded-xl p-1.5 bg-slate-50">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full py-3 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-extrabold text-sm shadow-md flex items-center justify-center gap-2">
+                                <i data-lucide="user-plus" class="w-4 h-4"></i><span>Setor Data KTP ke Posko Desa</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+                        <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                            <h3 class="font-bold text-sm text-slate-800">Daftar KTP Setoran Anda (${myList.length})</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="bg-[#0f2537] text-white text-xs uppercase">
+                                        <th class="py-3 px-4">TPS (Status DPT)</th>
+                                        <th class="py-3 px-4">Nama Pemilih</th>
+                                        <th class="py-3 px-4">NIK</th>
+                                        <th class="py-3 px-4 text-center">KTP</th>
+                                        <th class="py-3 px-4 text-center">Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    ${myList.length === 0 ? `<tr><td colspan="5" class="py-8 text-center text-slate-500">Anda belum menyetor data KTP pendukung.</td></tr>` : myList.map(p => `
+                                        <tr>
+                                            <td class="py-3 px-4">
+                                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${p.tpsId === 'UNASSIGNED' ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}">
+                                                    ${escapeHtml(p.tps)}
+                                                </span>
+                                            </td>
+                                            <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(p.nama)}</td>
+                                            <td class="py-3 px-4 font-mono text-xs">${escapeHtml(p.nik)}</td>
+                                            <td class="py-3 px-4 text-center"><button onclick="viewPhoto('${p.fotoKtp}', 'KTP: ${escapeHtml(p.nama)}', 'NIK: ${escapeHtml(p.nik)} • ${escapeHtml(p.tps)}')" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat</button></td>
+                                            <td class="py-3 px-4 text-center"><button onclick="openEditPemilihModal('${p.id}')" class="p-1.5 rounded-lg text-blue-800 bg-blue-50"><i data-lucide="pencil" class="w-4 h-4"></i></button></td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        // PORTAL ADMIN SAKSI TPS (UJUNG TOMBAK HARI-H: FOTO PLANO C1 + SUARA SYAHFRY + REKAN 1 PARTAI)
         function renderSaksiTpsView() {
             const kec = getActiveKecamatan(), desa = getActiveDesa();
             const myTps = desa?.tpsList[0];
@@ -1181,74 +1268,74 @@
             return `
                 <div class="max-w-xl mx-auto space-y-6">
                     <div class="bg-gradient-to-r from-[#0f2537] to-emerald-900 rounded-2xl p-6 text-white shadow-md">
-                        <span class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 text-[11px] font-extrabold uppercase">PORTAL SAKSI TPS</span>
+                        <span class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 text-[11px] font-extrabold uppercase">ADMIN SAKSI • UJUNG TOMBAK TPS</span>
                         <h2 class="text-2xl font-extrabold mt-2">${escapeHtml(myTps.nama)}</h2>
                         <p class="text-xs sm:text-sm text-emerald-100 mt-1">${escapeHtml(desa.nama)} • ${escapeHtml(kec.nama)}</p>
                     </div>
 
                     ${!mySuara ? `
                         <div class="bg-white rounded-2xl p-6 border-2 border-red-600/20 shadow-sm">
-                            <h3 class="font-extrabold text-base text-slate-900 mb-1">Input Hasil Penghitungan Suara (${escapeHtml(myTps.nama)})</h3>
-                            <p class="text-xs text-slate-500 mb-4">Isi angka sesuai C.Hasil Plano di TPS dan lampirkan foto bukti formulir Plano.</p>
+                            <h3 class="font-extrabold text-base text-slate-900 mb-1">Laporan Plano C1 (${escapeHtml(myTps.nama)})</h3>
+                            <p class="text-xs text-slate-500 mb-4">Foto formulir Plano C1 dan masukkan perolehan suara Caleg <strong>${escapeHtml(appState.config.calegName)}</strong> serta rekan 1 partai.</p>
                             <form onsubmit="handleAddSuara(event, '${myTps.id}')" class="space-y-4">
+                                <div>
+                                    <label class="block text-xs font-bold text-slate-700 mb-1">1. Foto Formulir Plano C1 (Wajib Jelas) *</label>
+                                    <input type="file" id="input-suara-foto" accept="image/*" capture="environment" class="w-full text-xs border-2 border-dashed border-emerald-600/40 rounded-xl p-2.5 bg-emerald-50/30">
+                                </div>
                                 <div class="grid grid-cols-2 gap-3">
                                     <div>
-                                        <label class="block text-xs font-bold text-blue-900 mb-1">${escapeHtml(appState.config.paslon1)} *</label>
-                                        <input type="number" min="0" id="input-suara-1" required value="0" class="w-full px-3.5 py-3 rounded-xl border-2 border-blue-900/30 bg-blue-50/30 text-base font-extrabold text-blue-950">
+                                        <label class="block text-xs font-bold text-blue-900 mb-1">Suara ${escapeHtml(appState.config.calegName)} *</label>
+                                        <input type="number" min="0" id="input-suara-syahfry" required value="0" class="w-full px-3.5 py-3 rounded-xl border-2 border-blue-900/40 bg-blue-50/30 text-base font-extrabold text-blue-950">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold text-amber-800 mb-1">${escapeHtml(appState.config.paslon2)} *</label>
-                                        <input type="number" min="0" id="input-suara-2" required value="0" class="w-full px-3.5 py-3 rounded-xl border border-slate-300 text-base font-bold">
+                                        <label class="block text-xs font-bold text-amber-800 mb-1">Suara Rekan 1 Partai *</label>
+                                        <input type="number" min="0" id="input-suara-rekan" required value="0" class="w-full px-3.5 py-3 rounded-xl border border-slate-300 text-base font-bold">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-bold text-emerald-800 mb-1">${escapeHtml(appState.config.paslon3)} *</label>
-                                        <input type="number" min="0" id="input-suara-3" required value="0" class="w-full px-3.5 py-3 rounded-xl border border-slate-300 text-base font-bold">
+                                        <label class="block text-xs font-bold text-emerald-800 mb-1">Coblos Lambang Partai *</label>
+                                        <input type="number" min="0" id="input-suara-partai" required value="0" class="w-full px-3.5 py-3 rounded-xl border border-slate-300 text-base font-bold">
                                     </div>
                                     <div>
                                         <label class="block text-xs font-bold text-red-700 mb-1">Suara Tidak Sah *</label>
                                         <input type="number" min="0" id="input-suara-tidaksah" required value="0" class="w-full px-3.5 py-3 rounded-xl border border-slate-300 text-base font-bold">
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 mb-1">Foto Bukti Formulir C.Hasil (Plano)</label>
-                                    <input type="file" id="input-suara-foto" accept="image/*" capture="environment" class="w-full text-xs border border-slate-300 rounded-xl p-2 bg-slate-50">
-                                </div>
                                 <button type="submit" class="w-full py-3.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-extrabold text-sm shadow-md flex items-center justify-center gap-2">
-                                    <i data-lucide="send" class="w-4 h-4"></i><span>Kirim Laporan Suara ke Admin Desa</span>
+                                    <i data-lucide="send" class="w-4 h-4"></i><span>Kirim Foto Plano C1 & Suara</span>
                                 </button>
                             </form>
                         </div>
                     ` : `
                         <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
                             <div class="flex items-center justify-between">
-                                <h3 class="font-extrabold text-base text-slate-900">Laporan Suara Terkirim</h3>
+                                <h3 class="font-extrabold text-base text-slate-900">Laporan Plano C1 Terkirim</h3>
                                 <span class="px-3 py-1 rounded-full text-xs font-extrabold ${isFinal ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
-                                    ${isFinal ? 'TERVERIFIKASI FINAL' : 'DRAFT (MENUNGGU REKAP DESA)'}
+                                    ${isFinal ? 'FINAL TERVERIFIKASI' : 'DRAFT'}
                                 </span>
                             </div>
                             <div class="grid grid-cols-2 gap-3 text-sm">
-                                <div class="p-3 rounded-xl bg-blue-50 border border-blue-200"><span class="text-xs text-blue-900 font-bold block">${escapeHtml(appState.config.paslon1)}</span><span class="text-xl font-extrabold text-blue-950">${mySuara.suara1}</span></div>
-                                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><span class="text-xs text-amber-900 font-bold block">${escapeHtml(appState.config.paslon2)}</span><span class="text-xl font-extrabold text-amber-950">${mySuara.suara2}</span></div>
-                                <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200"><span class="text-xs text-emerald-900 font-bold block">${escapeHtml(appState.config.paslon3)}</span><span class="text-xl font-extrabold text-emerald-950">${mySuara.suara3}</span></div>
-                                <div class="p-3 rounded-xl bg-red-50 border border-red-200"><span class="text-xs text-red-900 font-bold block">Tidak Sah</span><span class="text-xl font-extrabold text-red-950">${mySuara.tidakSah}</span></div>
+                                <div class="p-3 rounded-xl bg-blue-50 border-2 border-blue-900/20"><span class="text-xs text-blue-900 font-bold block">Suara ${escapeHtml(appState.config.calegName)}</span><span class="text-xl font-extrabold text-blue-950">${mySuara.suaraSyahfry}</span></div>
+                                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200"><span class="text-xs text-amber-900 font-bold block">Rekan 1 Partai</span><span class="text-xl font-extrabold text-amber-950">${mySuara.suaraRekan}</span></div>
+                                <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200"><span class="text-xs text-emerald-900 font-bold block">Coblos Partai</span><span class="text-xl font-extrabold text-emerald-950">${mySuara.suaraPartai}</span></div>
+                                <div class="p-3 rounded-xl bg-slate-100 border border-slate-200"><span class="text-xs text-slate-700 font-bold block">Total Sah Partai</span><span class="text-xl font-extrabold text-slate-900">${mySuara.totalSahPartai}</span></div>
                             </div>
                             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-                                ${mySuara.fotoCHasil ? `<button onclick="viewPhoto('${mySuara.fotoCHasil}', 'Bukti C.Hasil Plano', '${escapeHtml(myTps.nama)}')" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat Foto C.Hasil</button>` : '<span class="text-xs text-slate-400">Tanpa foto C.Hasil</span>'}
-                                ${!isFinal ? `<button onclick="openEditSuaraModal('${mySuara.id}')" class="px-4 py-2 rounded-xl bg-blue-900 text-white font-bold text-xs">Koreksi Angka / Foto</button>` : '<span class="text-xs font-bold text-emerald-700">Sudah dikunci Final oleh Admin Desa</span>'}
+                                ${mySuara.fotoCHasil ? `<button onclick="viewPhoto('${mySuara.fotoCHasil}', 'Foto Plano C1', '${escapeHtml(myTps.nama)}')" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat Foto Plano C1</button>` : '<span class="text-xs text-slate-400">Belum ada foto C1</span>'}
+                                ${!isFinal ? `<button onclick="openEditSuaraModal('${mySuara.id}')" class="px-4 py-2 rounded-xl bg-blue-900 text-white font-bold text-xs">Koreksi Angka / Foto</button>` : '<span class="text-xs font-bold text-emerald-700">Dikunci Final oleh Admin Desa</span>'}
                             </div>
                         </div>
                     `}
                 </div>`;
         }
 
-        // LEVEL 1: KABUPATEN (KHUSUS SUPER ADMIN)
+        // LEVEL 1: KABUPATEN (KHUSUS CALEG SYAHFRY / SUPER ADMIN)
         function renderKabupatenView() {
             const filteredKec = appState.kecamatanList.filter(k => k.nama.toLowerCase().includes(appState.searchQuery));
             return `
                 <div class="space-y-6">
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-900 text-xs font-bold">SUPER ADMIN • TINGKAT KABUPATEN</span>
+                            <span class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-900 text-xs font-bold">SUPER ADMIN • CALEG ${escapeHtml(appState.config.calegName.toUpperCase())}</span>
                             <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-2">Daftar Kecamatan di ${escapeHtml(appState.config.kabupatenName)}</h2>
                         </div>
                         <input type="text" value="${escapeHtml(appState.searchQuery)}" oninput="handleSearchInput(this.value)" placeholder="Cari kecamatan..." class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm w-full md:w-72">
@@ -1267,7 +1354,7 @@
                         ${filteredKec.map(kec => {
                             const jmlDesa = kec.desaList.length;
                             const jmlPemilih = kec.desaList.reduce((a, d) => a + d.pemilihList.length, 0);
-                            const suaraKita = kec.desaList.reduce((a, d) => a + (d.suaraList || []).reduce((sa, s) => sa + s.suara1, 0), 0);
+                            const suaraSyahfry = kec.desaList.reduce((a, d) => a + (d.suaraList || []).reduce((sa, s) => sa + s.suaraSyahfry, 0), 0);
                             return `
                             <div class="bg-white rounded-2xl border border-slate-200 hover:border-blue-900/50 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden">
                                 <div onclick="navigateTo('kecamatan', '${kec.id}')" class="p-5 cursor-pointer">
@@ -1276,7 +1363,7 @@
                                     <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-100">
                                         <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">Desa</span><span class="text-sm font-bold">${jmlDesa}</span></div>
                                         <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">KTP Kita</span><span class="text-sm font-bold text-emerald-700">${jmlPemilih}</span></div>
-                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">Suara 01</span><span class="text-sm font-bold text-blue-900">${suaraKita.toLocaleString('id-ID')}</span></div>
+                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">${escapeHtml(appState.config.calegName)}</span><span class="text-sm font-bold text-blue-900">${suaraSyahfry.toLocaleString('id-ID')}</span></div>
                                     </div>
                                 </div>
                                 <div class="bg-slate-50 px-5 py-3 border-t border-slate-100 flex items-center justify-between">
@@ -1289,7 +1376,7 @@
                 </div>`;
         }
 
-        // LEVEL 2: KECAMATAN (Super Admin atau Admin Kecamatan jika diaktifkan)
+        // LEVEL 2: KECAMATAN (Super Admin)
         function renderKecamatanView() {
             const kec = getActiveKecamatan();
             if (!kec) return '';
@@ -1299,7 +1386,7 @@
                 <div class="space-y-6">
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
-                            ${appState.currentUser.role === 'super' ? `<button onclick="navigateTo('kabupaten')" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg mb-2">&larr; Kabupaten</button>` : ''}
+                            <button onclick="navigateTo('kabupaten')" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg mb-2">&larr; Kabupaten</button>
                             <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">${escapeHtml(kec.nama)}</h2>
                         </div>
                         <input type="text" value="${escapeHtml(appState.searchQuery)}" oninput="handleSearchInput(this.value)" placeholder="Cari desa..." class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm w-full md:w-72">
@@ -1317,17 +1404,20 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                         ${filteredDesa.map(desa => {
                             const jmlPemilih = desa.pemilihList.length;
-                            const jmlTps = (desa.tpsList || []).length;
-                            const suaraKita = (desa.suaraList || []).reduce((a, s) => a + s.suara1, 0);
+                            const jmlUnassigned = desa.pemilihList.filter(p => p.tpsId === 'UNASSIGNED').length;
+                            const suaraSyahfry = (desa.suaraList || []).reduce((a, s) => a + s.suaraSyahfry, 0);
                             return `
                             <div class="bg-white rounded-2xl border border-slate-200 hover:border-blue-900/50 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden">
                                 <div onclick="navigateTo('desa', '${kec.id}', '${desa.id}')" class="p-5 cursor-pointer">
-                                    <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-mono text-xs font-bold">DESA #${escapeHtml(desa.kode)}</span>
+                                    <div class="flex items-center justify-between">
+                                        <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-mono text-xs font-bold">DESA #${escapeHtml(desa.kode)}</span>
+                                        ${jmlUnassigned > 0 ? `<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-bold">${jmlUnassigned} Belum DPT</span>` : ''}
+                                    </div>
                                     <h3 class="text-lg font-extrabold text-slate-900 mt-3">${escapeHtml(desa.nama)}</h3>
                                     <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-100">
-                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">Entitas TPS</span><span class="text-sm font-bold">${jmlTps} TPS</span></div>
-                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">Pendukung</span><span class="text-sm font-bold text-emerald-700">${jmlPemilih} Org</span></div>
-                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">Suara 01</span><span class="text-sm font-bold text-blue-900">${suaraKita.toLocaleString('id-ID')}</span></div>
+                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">TPS</span><span class="text-sm font-bold">${(desa.tpsList || []).length} TPS</span></div>
+                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">KTP Kita</span><span class="text-sm font-bold text-emerald-700">${jmlPemilih} Org</span></div>
+                                        <div><span class="text-[10px] font-semibold text-slate-400 uppercase block">${escapeHtml(appState.config.calegName)}</span><span class="text-sm font-bold text-blue-900">${suaraSyahfry.toLocaleString('id-ID')}</span></div>
                                     </div>
                                 </div>
                                 <div class="bg-slate-50 px-5 py-3 border-t border-slate-100 flex items-center justify-between">
@@ -1340,12 +1430,11 @@
                 </div>`;
         }
 
-        // LEVEL 3: DESA (Admin Desa terisolasi mutlak di desanya; Super Admin bisa pantau)
+        // LEVEL 3: DESA (ADMIN DESA PENATA DPT & REKAP C1 DESA)
         function renderDesaView() {
             const kec = getActiveKecamatan(), desa = getActiveDesa();
             if (!kec || !desa) return '';
             const u = appState.currentUser;
-            const canEditDesa = (u.role === 'super' || u.role === 'desa');
             const canUnlockFinal = (u.role === 'super');
 
             const tpsList = desa.tpsList || [];
@@ -1354,45 +1443,56 @@
             suaraList.forEach(s => { suaraByTpsId[s.tpsId] = s; });
 
             const tpsCountsById = {};
-            desa.pemilihList.forEach(p => { tpsCountsById[p.tpsId] = (tpsCountsById[p.tpsId] || 0) + 1; });
+            let unassignedCount = 0;
+            const pengumpulMap = {};
+
+            desa.pemilihList.forEach(p => {
+                if (p.tpsId === 'UNASSIGNED') unassignedCount++;
+                else tpsCountsById[p.tpsId] = (tpsCountsById[p.tpsId] || 0) + 1;
+
+                const pKey = p.pengumpulUser || 'admin';
+                if (!pengumpulMap[pKey]) pengumpulMap[pKey] = { user: pKey, nama: p.pengumpulNama || pKey, count: 0 };
+                pengumpulMap[pKey].count++;
+            });
 
             const availableTpsForVote = tpsList.filter(t => !suaraByTpsId[t.id]);
             const filteredPemilih = desa.pemilihList.filter(p => {
                 const matchTps = appState.selectedTpsFilter === 'ALL' || p.tpsId === appState.selectedTpsFilter;
+                const matchPengumpul = appState.selectedPengumpulFilter === 'ALL' || (p.pengumpulUser || 'admin') === appState.selectedPengumpulFilter;
                 const matchSearch = p.nama.toLowerCase().includes(appState.searchQuery) || p.nik.toLowerCase().includes(appState.searchQuery);
-                return matchTps && matchSearch;
+                return matchTps && matchPengumpul && matchSearch;
             });
 
-            const totS1 = suaraList.reduce((a, s) => a + s.suara1, 0);
-            const totS2 = suaraList.reduce((a, s) => a + s.suara2, 0);
-            const totS3 = suaraList.reduce((a, s) => a + s.suara3, 0);
+            const totSyahfry = suaraList.reduce((a, s) => a + s.suaraSyahfry, 0);
+            const totRekan = suaraList.reduce((a, s) => a + s.suaraRekan, 0);
+            const totPartai = suaraList.reduce((a, s) => a + s.suaraPartai, 0);
+            const totSahPartai = totSyahfry + totRekan + totPartai;
             const totTidakSah = suaraList.reduce((a, s) => a + s.tidakSah, 0);
 
             return `
                 <div class="space-y-6">
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs">
-                        ${(u.role === 'super' || u.role === 'kecamatan') ? `<button onclick="navigateTo('kecamatan', '${kec.id}')" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg mb-2">&larr; ${escapeHtml(kec.nama)}</button>` : ''}
+                        ${u.role === 'super' ? `<button onclick="navigateTo('kecamatan', '${kec.id}')" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg mb-2">&larr; ${escapeHtml(kec.nama)}</button>` : ''}
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
-                                <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">POSKO REKAP DESA</span>
+                                <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">POSKO PENATAAN DPT & REKAP DESA</span>
                                 <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">${escapeHtml(desa.nama)}</h2>
                             </div>
-                            ${canEditDesa ? `
-                                <button onclick="openUsersModal()" class="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
-                                    <i data-lucide="user-plus" class="w-4 h-4"></i><span>Buat Akun Saksi TPS</span>
-                                </button>
-                            ` : ''}
+                            <button onclick="openUsersModal()" class="px-4 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
+                                <i data-lucide="user-plus" class="w-4 h-4"></i><span>Buat Akun Tim KTP / Saksi</span>
+                            </button>
                         </div>
 
                         <!-- Sub-Navigation Tabs -->
                         <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
-                            <button onclick="switchDesaTab('suara')"
-                                class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold ${appState.desaActiveTab === 'suara' ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-600'}">
-                                <i data-lucide="vote" class="w-4 h-4"></i><span>Rekap Suara TPS (${suaraList.length}/${tpsList.length})</span>
-                            </button>
                             <button onclick="switchDesaTab('pemilih')"
                                 class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold ${appState.desaActiveTab === 'pemilih' ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-600'}">
-                                <i data-lucide="user-check" class="w-4 h-4"></i><span>Pendukung & KTP (${desa.pemilihList.length})</span>
+                                <i data-lucide="user-check" class="w-4 h-4"></i><span>Penataan DPT & KTP (${desa.pemilihList.length})</span>
+                                ${unassignedCount > 0 ? `<span class="px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px]">${unassignedCount} Belum TPS</span>` : ''}
+                            </button>
+                            <button onclick="switchDesaTab('suara')"
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold ${appState.desaActiveTab === 'suara' ? 'bg-red-600 text-white' : 'bg-slate-100 text-slate-600'}">
+                                <i data-lucide="vote" class="w-4 h-4"></i><span>Rekap Plano C1 (${suaraList.length}/${tpsList.length})</span>
                             </button>
                             <button onclick="switchDesaTab('tps')"
                                 class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold ${appState.desaActiveTab === 'tps' ? 'bg-emerald-700 text-white' : 'bg-slate-100 text-slate-600'}">
@@ -1402,36 +1502,35 @@
                     </div>
 
                     ${appState.desaActiveTab === 'tps' ? `
-                        ${canEditDesa ? `
                         <div class="bg-white rounded-2xl p-5 border-2 border-emerald-700/20 shadow-xs">
                             <h3 class="font-bold text-base text-slate-900 mb-3">Tambah Entitas TPS di ${escapeHtml(desa.nama)}</h3>
                             <form onsubmit="handleAddTps(event)" class="flex flex-col sm:flex-row gap-3">
                                 <input type="text" id="input-tps-nama" required placeholder="Contoh: TPS 01" class="px-4 py-2.5 rounded-xl border border-slate-300 text-sm font-bold sm:w-64">
                                 <button type="submit" class="px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm">Tambah TPS</button>
                             </form>
-                        </div>` : ''}
+                        </div>
 
                         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                             <table class="w-full text-left border-collapse text-sm">
                                 <thead>
                                     <tr class="bg-[#0f2537] text-white text-xs uppercase">
                                         <th class="py-3 px-4">Nama TPS</th>
-                                        <th class="py-3 px-4 text-center">Basis KTP</th>
-                                        <th class="py-3 px-4 text-center">Status Suara</th>
-                                        ${canEditDesa ? `<th class="py-3 px-4 text-center w-24">Aksi</th>` : ''}
+                                        <th class="py-3 px-4 text-center">DPT Pendukung</th>
+                                        <th class="py-3 px-4 text-center">Laporan Plano C1</th>
+                                        <th class="py-3 px-4 text-center w-24">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-slate-200">
-                                    ${tpsList.length === 0 ? `<tr><td colspan="4" class="py-8 text-center text-slate-500">Belum ada entitas TPS di desa ini.</td></tr>` : tpsList.map(t => {
+                                    ${tpsList.length === 0 ? `<tr><td colspan="4" class="py-8 text-center text-slate-500">Belum ada entitas TPS. Tambahkan TPS 01, TPS 02, dst. terlebih dahulu.</td></tr>` : tpsList.map(t => {
                                         const sObj = suaraByTpsId[t.id];
                                         return `
                                         <tr>
                                             <td class="py-3 px-4 font-extrabold text-slate-900">${escapeHtml(t.nama)}</td>
                                             <td class="py-3 px-4 text-center font-bold text-emerald-700">${tpsCountsById[t.id] || 0} Orang</td>
                                             <td class="py-3 px-4 text-center">
-                                                ${sObj ? `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${sObj.status === 'Final' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${sObj.status}</span>` : `<span class="text-xs text-slate-400">Menunggu Saksi</span>`}
+                                                ${sObj ? `<span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${sObj.status === 'Final' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${sObj.status} (${escapeHtml(appState.config.calegName)}: ${sObj.suaraSyahfry})</span>` : `<span class="text-xs text-slate-400">Menunggu Saksi</span>`}
                                             </td>
-                                            ${canEditDesa ? `<td class="py-3 px-4 text-center"><button onclick="handleDeleteTps('${t.id}', '${escapeHtml(t.nama)}')" class="text-xs font-bold text-red-600 hover:underline">Hapus</button></td>` : ''}
+                                            <td class="py-3 px-4 text-center"><button onclick="handleDeleteTps('${t.id}', '${escapeHtml(t.nama)}')" class="text-xs font-bold text-red-600 hover:underline">Hapus</button></td>
                                         </tr>`;
                                     }).join('')}
                                 </tbody>
@@ -1440,57 +1539,80 @@
                     ` : ''}
 
                     ${appState.desaActiveTab === 'pemilih' ? `
-                        ${canEditDesa ? `
-                        <div class="bg-white rounded-2xl p-5 border-2 border-blue-900/15 shadow-xs">
-                            <h3 class="font-bold text-base text-slate-900 mb-3">Tambah Pendukung Paslon</h3>
-                            ${tpsList.length === 0 ? `<p class="text-xs text-red-600 font-bold">Buat TPS terlebih dahulu di tab "Daftar TPS".</p>` : `
-                            <form onsubmit="handleAddPemilih(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3">
-                                <div class="md:col-span-2">
-                                    <label class="block text-xs font-bold text-emerald-800 mb-1">Pilih TPS *</label>
-                                    <select id="input-pemilih-tps-id" required class="w-full px-3 py-2.5 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-sm">
-                                        ${tpsList.map(t => `<option value="${t.id}">${escapeHtml(t.nama)}</option>`).join('')}
-                                    </select>
-                                </div>
-                                <div class="md:col-span-3"><label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap *</label><input type="text" id="input-pemilih-nama" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"></div>
-                                <div class="md:col-span-3"><label class="block text-xs font-bold text-slate-700 mb-1">NIK KTP *</label><input type="text" id="input-pemilih-nik" required pattern="[0-9]+" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono text-sm"></div>
-                                <div class="md:col-span-3"><label class="block text-xs font-bold text-slate-700 mb-1">Foto KTP</label><input type="file" id="input-pemilih-foto" accept="image/*" class="w-full text-xs border border-slate-300 rounded-xl p-1.5"></div>
-                                <div class="md:col-span-1 flex items-end"><button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-blue-900 text-white font-bold text-sm">Simpan</button></div>
-                            </form>`}
-                        </div>` : ''}
-
+                        <!-- Ringkasan Kinerja Pengumpul KTP di Desa Ini -->
                         <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
                             <div class="flex flex-wrap items-center justify-between gap-2">
-                                <span class="text-xs font-bold uppercase text-slate-500">Filter TPS:</span>
-                                <input type="text" value="${escapeHtml(appState.searchQuery)}" oninput="handleSearchInput(this.value)" placeholder="Cari Nama / NIK..." class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs w-full sm:w-64">
+                                <span class="text-xs font-extrabold uppercase text-slate-700">Setoran Tim Pengumpul KTP (${Object.keys(pengumpulMap).length} Petugas):</span>
+                                <input type="text" value="${escapeHtml(appState.searchQuery)}" oninput="handleSearchInput(this.value)" placeholder="Cari Nama (misal: Juminten) / NIK..." class="px-3.5 py-2 rounded-xl border border-slate-300 text-xs w-full sm:w-72">
                             </div>
                             <div class="flex flex-wrap gap-2">
-                                <button onclick="setTpsFilter('ALL')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedTpsFilter === 'ALL' ? 'bg-[#0f2537] text-white' : 'bg-slate-100 text-slate-600'}">Semua TPS (${desa.pemilihList.length})</button>
-                                ${tpsList.map(t => `<button onclick="setTpsFilter('${t.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedTpsFilter === t.id ? 'bg-emerald-700 text-white' : 'bg-emerald-50 text-emerald-900 border border-emerald-200'}">${escapeHtml(t.nama)} (${tpsCountsById[t.id] || 0} org)</button>`).join('')}
+                                <button onclick="setPengumpulFilter('ALL')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedPengumpulFilter === 'ALL' ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-600'}">Semua Pengumpul (${desa.pemilihList.length})</button>
+                                ${Object.values(pengumpulMap).map(pm => `
+                                    <button onclick="setPengumpulFilter('${escapeHtml(pm.user)}')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedPengumpulFilter === pm.user ? 'bg-blue-900 text-white' : 'bg-blue-50 text-blue-900 border border-blue-200'}">
+                                        ${escapeHtml(pm.nama)} (${pm.count} KTP)
+                                    </button>
+                                `).join('')}
+                            </div>
+                            <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-100">
+                                <button onclick="setTpsFilter('ALL')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedTpsFilter === 'ALL' ? 'bg-[#0f2537] text-white' : 'bg-slate-100 text-slate-600'}">Semua TPS</button>
+                                ${unassignedCount > 0 ? `<button onclick="setTpsFilter('UNASSIGNED')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedTpsFilter === 'UNASSIGNED' ? 'bg-red-600 text-white' : 'bg-red-50 text-red-700 border border-red-200'}">Belum Dikategorikan TPS (${unassignedCount})</button>` : ''}
+                                ${tpsList.map(t => `<button onclick="setTpsFilter('${t.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold ${appState.selectedTpsFilter === t.id ? 'bg-emerald-700 text-white' : 'bg-emerald-50 text-emerald-900 border border-emerald-200'}">${escapeHtml(t.nama)} (${tpsCountsById[t.id] || 0})</button>`).join('')}
                             </div>
                         </div>
 
+                        <!-- Form Input Langsung oleh Admin Desa -->
+                        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs">
+                            <h3 class="font-bold text-sm text-slate-900 mb-3">Tambah Langsung Pemilih ke DPT Desa</h3>
+                            <form onsubmit="handleAddPemilih(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                                <div class="md:col-span-3">
+                                    <select id="input-pemilih-tps-id" required class="w-full px-3 py-2.5 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-xs sm:text-sm">
+                                        ${tpsList.map(t => `<option value="${t.id}">${escapeHtml(t.nama)}</option>`).join('')}
+                                        <option value="UNASSIGNED">-- Belum Dikategorikan --</option>
+                                    </select>
+                                </div>
+                                <div class="md:col-span-3"><input type="text" id="input-pemilih-nama" required placeholder="Nama Pemilih" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-sm"></div>
+                                <div class="md:col-span-3"><input type="text" id="input-pemilih-nik" required pattern="[0-9]+" placeholder="NIK KTP" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 font-mono text-sm"></div>
+                                <div class="md:col-span-2"><input type="file" id="input-pemilih-foto" accept="image/*" class="w-full text-xs border border-slate-300 rounded-xl p-1.5"></div>
+                                <div class="md:col-span-1"><button type="submit" class="w-full py-2.5 px-3 rounded-xl bg-blue-900 text-white font-bold text-xs">Simpan</button></div>
+                            </form>
+                        </div>
+
+                        <!-- Tabel Penataan DPT Desa -->
                         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left border-collapse text-sm">
                                     <thead>
                                         <tr class="bg-[#0f2537] text-white text-xs uppercase">
                                             <th class="py-3 px-4 text-center w-12">No</th>
-                                            <th class="py-3 px-4 w-28">TPS</th>
-                                            <th class="py-3 px-4">Nama Pendukung</th>
+                                            <th class="py-3 px-4">TPS (DPT)</th>
+                                            <th class="py-3 px-4">Nama Pemilih</th>
                                             <th class="py-3 px-4">NIK KTP</th>
+                                            <th class="py-3 px-4">Pengumpul KTP</th>
                                             <th class="py-3 px-4 text-center">Foto KTP</th>
-                                            ${canEditDesa ? `<th class="py-3 px-4 text-center w-28">Aksi</th>` : ''}
+                                            <th class="py-3 px-4 text-center">Tata DPT / Ubah</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-200">
-                                        ${filteredPemilih.length === 0 ? `<tr><td colspan="6" class="py-8 text-center text-slate-500">Belum ada data pendukung.</td></tr>` : filteredPemilih.map((p, idx) => `
-                                            <tr>
+                                        ${filteredPemilih.length === 0 ? `<tr><td colspan="7" class="py-8 text-center text-slate-500">Tidak ada data pemilih sesuai filter.</td></tr>` : filteredPemilih.map((p, idx) => `
+                                            <tr class="${p.tpsId === 'UNASSIGNED' ? 'bg-amber-50/60' : ''}">
                                                 <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
-                                                <td class="py-3 px-4"><span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold text-xs">${escapeHtml(p.tps)}</span></td>
+                                                <td class="py-3 px-4">
+                                                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${p.tpsId === 'UNASSIGNED' ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}">
+                                                        ${escapeHtml(p.tps)}
+                                                    </span>
+                                                </td>
                                                 <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(p.nama)}</td>
                                                 <td class="py-3 px-4 font-mono text-xs">${escapeHtml(p.nik)}</td>
+                                                <td class="py-3 px-4 text-xs text-slate-600 font-semibold">${escapeHtml(p.pengumpulNama)}</td>
                                                 <td class="py-3 px-4 text-center"><button onclick="viewPhoto('${p.fotoKtp}', 'KTP: ${escapeHtml(p.nama)}', 'NIK: ${escapeHtml(p.nik)} • ${escapeHtml(p.tps)}')" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat</button></td>
-                                                ${canEditDesa ? `<td class="py-3 px-4 text-center"><div class="inline-flex gap-1"><button onclick="openEditPemilihModal('${p.id}')" class="p-1.5 rounded-lg text-blue-800 bg-blue-50"><i data-lucide="pencil" class="w-4 h-4"></i></button><button onclick="handleDeletePemilih('${p.id}', '${escapeHtml(p.nama)}')" class="p-1.5 rounded-lg text-red-600 bg-red-50"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div></td>` : ''}
+                                                <td class="py-3 px-4 text-center">
+                                                    <div class="inline-flex gap-1.5">
+                                                        <button onclick="openEditPemilihModal('${p.id}')" class="px-2.5 py-1 rounded-lg text-white bg-blue-900 hover:bg-blue-800 text-xs font-bold flex items-center gap-1" title="Ubah TPS / Koreksi Data">
+                                                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i><span>Ubah</span>
+                                                        </button>
+                                                        <button onclick="handleDeletePemilih('${p.id}', '${escapeHtml(p.nama)}')" class="p-1.5 rounded-lg text-red-600 bg-red-50"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         `).join('')}
                                     </tbody>
@@ -1500,9 +1622,9 @@
                     ` : ''}
 
                     ${appState.desaActiveTab === 'suara' ? `
-                        ${canEditDesa && availableTpsForVote.length > 0 ? `
+                        ${availableTpsForVote.length > 0 ? `
                         <div class="bg-white rounded-2xl p-5 border-2 border-red-600/15 shadow-xs">
-                            <h3 class="font-bold text-base text-slate-900 mb-3">Input Manual Suara TPS (Jika Saksi Belum Input)</h3>
+                            <h3 class="font-bold text-base text-slate-900 mb-3">Input Manual C1 TPS (Jika Saksi Belum Input)</h3>
                             <form onsubmit="handleAddSuara(event)" class="grid grid-cols-2 md:grid-cols-12 gap-3">
                                 <div class="col-span-2 md:col-span-2">
                                     <label class="block text-xs font-bold text-slate-700 mb-1">Pilih TPS *</label>
@@ -1510,9 +1632,9 @@
                                         ${availableTpsForVote.map(t => `<option value="${t.id}">${escapeHtml(t.nama)}</option>`).join('')}
                                     </select>
                                 </div>
-                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-blue-900 mb-1">${escapeHtml(appState.config.paslon1)}</label><input type="number" min="0" id="input-suara-1" required value="0" class="w-full px-3 py-2.5 rounded-xl border-2 border-blue-900/30 text-sm font-extrabold"></div>
-                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-amber-800 mb-1">${escapeHtml(appState.config.paslon2)}</label><input type="number" min="0" id="input-suara-2" required value="0" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm font-bold"></div>
-                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-1">${escapeHtml(appState.config.paslon3)}</label><input type="number" min="0" id="input-suara-3" required value="0" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm font-bold"></div>
+                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-blue-900 mb-1">Suara ${escapeHtml(appState.config.calegName)}</label><input type="number" min="0" id="input-suara-syahfry" required value="0" class="w-full px-3 py-2.5 rounded-xl border-2 border-blue-900/30 text-sm font-extrabold"></div>
+                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-amber-800 mb-1">Rekan 1 Partai</label><input type="number" min="0" id="input-suara-rekan" required value="0" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm font-bold"></div>
+                                <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-1">Coblos Partai</label><input type="number" min="0" id="input-suara-partai" required value="0" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm font-bold"></div>
                                 <div class="col-span-1 md:col-span-2"><label class="block text-xs font-bold text-red-700 mb-1">Tidak Sah</label><input type="number" min="0" id="input-suara-tidaksah" required value="0" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm"></div>
                                 <div class="col-span-2 md:col-span-2 flex items-end"><button type="submit" class="w-full py-2.5 px-4 rounded-xl bg-red-600 text-white font-bold text-sm">Simpan</button></div>
                             </form>
@@ -1520,7 +1642,7 @@
 
                         <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
                             <div class="px-5 py-4 bg-slate-50 border-b border-slate-200">
-                                <h3 class="font-bold text-sm text-slate-800">Rekap Suara TPS vs Basis KTP di ${escapeHtml(desa.nama)}</h3>
+                                <h3 class="font-bold text-sm text-slate-800">Rekap Plano C1 TPS vs Basis KTP di ${escapeHtml(desa.nama)}</h3>
                             </div>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left border-collapse text-sm">
@@ -1528,36 +1650,31 @@
                                         <tr class="bg-[#0f2537] text-white text-xs uppercase">
                                             <th class="py-3 px-4">TPS</th>
                                             <th class="py-3 px-4 text-center">Status</th>
-                                            <th class="py-3 px-4 text-center">Bukti Plano</th>
+                                            <th class="py-3 px-4 text-center">Plano C1</th>
                                             <th class="py-3 px-4 text-center bg-emerald-900">Target KTP</th>
-                                            <th class="py-3 px-4 text-right bg-blue-900">${escapeHtml(appState.config.paslon1)}</th>
-                                            <th class="py-3 px-4 text-right">${escapeHtml(appState.config.paslon2)}</th>
-                                            <th class="py-3 px-4 text-right">${escapeHtml(appState.config.paslon3)}</th>
-                                            <th class="py-3 px-4 text-right">Suara Sah</th>
+                                            <th class="py-3 px-4 text-right bg-blue-900">${escapeHtml(appState.config.calegName)}</th>
+                                            <th class="py-3 px-4 text-right">Rekan 1 Partai</th>
+                                            <th class="py-3 px-4 text-right">Coblos Partai</th>
+                                            <th class="py-3 px-4 text-right">Total Partai</th>
                                             <th class="py-3 px-4 text-right">Tidak Sah</th>
-                                            ${canEditDesa ? `<th class="py-3 px-4 text-center">Verifikasi & Aksi</th>` : ''}
+                                            <th class="py-3 px-4 text-center">Verifikasi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="divide-y divide-slate-200">
-                                        ${suaraList.length === 0 ? `<tr><td colspan="10" class="py-8 text-center text-slate-500">Belum ada laporan suara dari Saksi TPS.</td></tr>` : suaraList.map(s => {
+                                        ${suaraList.length === 0 ? `<tr><td colspan="10" class="py-8 text-center text-slate-500">Belum ada laporan Plano C1 dari Admin Saksi TPS.</td></tr>` : suaraList.map(s => {
                                             const isFinal = s.status === 'Final';
-                                            const canModifyRow = canEditDesa && (!isFinal || canUnlockFinal);
+                                            const canModifyRow = (!isFinal || canUnlockFinal);
                                             return `
                                             <tr>
                                                 <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(s.tps)}</td>
-                                                <td class="py-3 px-4 text-center">
-                                                    <span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold ${isFinal ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">${isFinal ? 'FINAL' : 'DRAFT'}</span>
-                                                </td>
-                                                <td class="py-3 px-4 text-center">
-                                                    ${s.fotoCHasil ? `<button onclick="viewPhoto('${s.fotoCHasil}', 'Foto C.Hasil Plano', '${escapeHtml(s.tps)} • ${escapeHtml(desa.nama)}')" class="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-900 font-bold text-xs">Foto Plano</button>` : '<span class="text-xs text-slate-400">-</span>'}
-                                                </td>
+                                                <td class="py-3 px-4 text-center"><span class="px-2.5 py-0.5 rounded-full text-xs font-extrabold ${isFinal ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${isFinal ? 'FINAL' : 'DRAFT'}</span></td>
+                                                <td class="py-3 px-4 text-center">${s.fotoCHasil ? `<button onclick="viewPhoto('${s.fotoCHasil}', 'Foto Plano C1', '${escapeHtml(s.tps)} • ${escapeHtml(desa.nama)}')" class="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-900 font-bold text-xs">Foto C1</button>` : '<span class="text-xs text-slate-400">-</span>'}</td>
                                                 <td class="py-3 px-4 text-center font-bold text-emerald-700 bg-emerald-50/40">${tpsCountsById[s.tpsId] || 0} KTP</td>
-                                                <td class="py-3 px-4 text-right font-extrabold text-blue-900 bg-blue-50/40">${s.suara1.toLocaleString('id-ID')}</td>
-                                                <td class="py-3 px-4 text-right font-semibold text-amber-700">${s.suara2.toLocaleString('id-ID')}</td>
-                                                <td class="py-3 px-4 text-right font-semibold text-slate-700">${s.suara3.toLocaleString('id-ID')}</td>
-                                                <td class="py-3 px-4 text-right font-extrabold text-slate-900">${s.totalSah.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right font-extrabold text-blue-900 bg-blue-50/40">${s.suaraSyahfry.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right font-semibold text-amber-700">${s.suaraRekan.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right font-semibold text-slate-700">${s.suaraPartai.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right font-extrabold text-slate-900">${s.totalSahPartai.toLocaleString('id-ID')}</td>
                                                 <td class="py-3 px-4 text-right text-red-600">${s.tidakSah.toLocaleString('id-ID')}</td>
-                                                ${canEditDesa ? `
                                                 <td class="py-3 px-4 text-center">
                                                     <div class="inline-flex items-center gap-1.5">
                                                         ${!isFinal ? `<button onclick="toggleSuaraStatus('${s.id}', 'Final', '${escapeHtml(s.tps)}')" class="px-2.5 py-1 rounded-lg bg-emerald-700 text-white text-xs font-bold">Kunci Final</button>` : ''}
@@ -1567,21 +1684,21 @@
                                                             <button onclick="handleDeleteSuara('${s.id}', '${escapeHtml(s.tps)}')" class="p-1.5 rounded-lg text-red-600 bg-red-50"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                                                         ` : ''}
                                                     </div>
-                                                </td>` : ''}
+                                                </td>
                                             </tr>`;
                                         }).join('')}
                                     </tbody>
                                     ${suaraList.length > 0 ? `
                                         <tfoot>
                                             <tr class="bg-slate-100 font-extrabold text-slate-900 border-t-2 border-slate-300">
-                                                <td colspan="3" class="py-3 px-4">TOTAL TPS (${suaraList.length})</td>
+                                                <td colspan="3" class="py-3 px-4">TOTAL DESA (${suaraList.length} TPS)</td>
                                                 <td class="py-3 px-4 text-center text-emerald-800">${desa.pemilihList.length} KTP</td>
-                                                <td class="py-3 px-4 text-right text-blue-900">${totS1.toLocaleString('id-ID')}</td>
-                                                <td class="py-3 px-4 text-right text-amber-800">${totS2.toLocaleString('id-ID')}</td>
-                                                <td class="py-3 px-4 text-right text-slate-800">${totS3.toLocaleString('id-ID')}</td>
-                                                <td class="py-3 px-4 text-right">${(totS1 + totS2 + totS3).toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right text-blue-900">${totSyahfry.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right text-amber-800">${totRekan.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right text-slate-800">${totPartai.toLocaleString('id-ID')}</td>
+                                                <td class="py-3 px-4 text-right">${totSahPartai.toLocaleString('id-ID')}</td>
                                                 <td class="py-3 px-4 text-right text-red-600">${totTidakSah.toLocaleString('id-ID')}</td>
-                                                ${canEditDesa ? `<td></td>` : ''}
+                                                <td></td>
                                             </tr>
                                         </tfoot>
                                     ` : ''}
