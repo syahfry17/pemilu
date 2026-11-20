@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIPEMILU CALEG SYAHFRY v4.0 - Penataan DPT, Pengumpul KTP & Saksi C1</title>
+    <title>SIPEMILU CALEG SYAHFRY v4.1 - Penataan DPT, Pengumpul KTP & Saksi C1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <h1 id="header-caleg-title" class="text-lg sm:text-xl font-extrabold tracking-tight leading-none">SIPEMILU CALEG SYAHFRY</h1>
-                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white">v4.0</span>
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-600 text-white">v4.1</span>
                         </div>
                         <p id="header-kabupaten-subtitle" class="text-xs sm:text-sm text-blue-200 font-medium mt-0.5">
                             DPT Pendukung, Tim Pengumpul KTP & Saksi Plano C1
@@ -36,7 +36,6 @@
                     </div>
                 </div>
 
-                <!-- Right Controls -->
                 <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/10">
                     <button onclick="openGSheetModal()"
                         class="flex items-center gap-2 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-200 border border-emerald-400/30">
@@ -58,7 +57,7 @@
                     <button id="btn-admin-toggle" onclick="handleAuthButton()"
                         class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20">
                         <i data-lucide="lock" class="w-4 h-4 text-amber-400"></i>
-                        <span>Login Petugas</span>
+                        <span>Login Tim</span>
                     </button>
                 </div>
             </div>
@@ -132,10 +131,9 @@
         <section id="app-view" class="fade-in"></section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-slate-200 mt-12 py-5 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4">
-            <p class="font-semibold text-slate-700">SIPEMILU CALEG SYAHFRY v4.0 • Penataan DPT Desa, Pengumpul KTP & Saksi Plano C1</p>
+            <p class="font-semibold text-slate-700">SIPEMILU CALEG SYAHFRY v4.1 • Penataan DPT Desa, Pengumpul KTP & Saksi Plano C1</p>
         </div>
     </footer>
 
@@ -150,7 +148,7 @@
         </div>
     </div>
 
-    <!-- Modal Kelola Akun Tim (Admin Desa -> Pengumpul KTP & Saksi; Super Admin -> Desa/Pengumpul/Saksi) -->
+    <!-- Modal Kelola Akun Tim -->
     <div id="modal-users" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 my-auto fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-blue-900 px-6 py-4 text-white flex items-center justify-between">
@@ -174,11 +172,11 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Nama Lengkap Petugas *</label>
-                            <input type="text" id="user-form-display" required placeholder="Misal: Budi Santoso (Tim KTP)" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                            <input type="text" id="user-form-display" required placeholder="Misal: Budi Handuk" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 mb-1">Username Login *</label>
-                            <input type="text" id="user-form-username" required placeholder="Misal: ktp_budi01" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
+                            <input type="text" id="user-form-username" required placeholder="Misal: admin_budi" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm">
                         </div>
                         <div class="sm:col-span-2">
                             <label class="block text-xs font-bold text-slate-700 mb-1">PIN Login *</label>
@@ -233,7 +231,7 @@
         </div>
     </div>
 
-    <!-- Modal Pratinjau Foto (KTP maupun Plano C1) -->
+    <!-- Modal Pratinjau Foto -->
     <div id="modal-photo-preview" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/75 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-[#1e3a8a] px-6 py-4 text-white flex items-center justify-between">
@@ -295,7 +293,7 @@
         </div>
     </div>
 
-    <!-- Modal Pengaturan Caleg SYAHFRY (Super Admin) -->
+    <!-- Modal Pengaturan Caleg SYAHFRY -->
     <div id="modal-config" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-[#0f2537] px-6 py-4 text-white flex items-center justify-between">
@@ -315,7 +313,7 @@
         </div>
     </div>
 
-    <!-- Modal Penataan DPT & Koreksi Salah Input (Admin Desa) -->
+    <!-- Modal Penataan DPT & Koreksi Salah Input -->
     <div id="modal-edit-pemilih" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-blue-900 px-6 py-4 text-white flex items-center justify-between">
@@ -324,9 +322,7 @@
             </div>
             <form onsubmit="submitEditPemilih(event)" class="p-6 space-y-3.5">
                 <input type="hidden" id="edit-pemilih-id">
-                <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl text-xs text-amber-900">
-                    <strong>Penataan DPT:</strong> Pindahkan pemilih ke TPS yang benar jika salah input oleh tim pengumpul KTP atau belum dikategorikan.
-                </div>
+                <div id="edit-pemilih-meta-box" class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-xs text-blue-950 space-y-1"></div>
                 <div>
                     <label class="block text-xs font-bold text-emerald-800 mb-1">Penempatan TPS Resmi (DPT) *</label>
                     <select id="edit-pemilih-tps-id" required class="w-full px-3.5 py-2 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-sm"></select>
@@ -345,7 +341,7 @@
         </div>
     </div>
 
-    <!-- Modal Edit Hasil Suara C1 TPS (Admin Saksi / Admin Desa saat Draft) -->
+    <!-- Modal Edit Hasil Suara C1 TPS -->
     <div id="modal-edit-suara" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 backdrop-blur-xs p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 fade-in">
             <div class="bg-gradient-to-r from-[#0f2537] to-red-800 px-6 py-4 text-white flex items-center justify-between">
@@ -372,12 +368,11 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <script>
         const GSHEET_URL_KEY = 'sipemilu_gsheet_webapp_url_v1';
-        const AUTH_SESSION_KEY = 'sipemilu_syahfry_session_v4_0';
+        const AUTH_SESSION_KEY = 'sipemilu_syahfry_session_v4_1';
 
         let appState = {
             config: {
@@ -389,9 +384,9 @@
             kecamatanList: [],
             usersList: [],
             logsList: [],
-            currentUser: null, // { id, username, role: 'super'|'desa'|'pengumpul'|'saksi', scopeId, displayName }
+            currentUser: null,
             authCredentials: null,
-            currentLevel: 'login', // 'login' | 'kabupaten' | 'kecamatan' | 'desa' | 'pengumpul' | 'saksi'
+            currentLevel: 'login',
             selectedKecamatanId: null,
             selectedDesaId: null,
             desaActiveTab: 'pemilih',
@@ -409,8 +404,8 @@
             return String(unsafe).replace(/[<>&'"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '\'': '&apos;', '"': '&quot;' }[c]));
         }
 
-        function generateDummyKtpImage(nama, nik, desa = 'DESA', tps = 'TPS') {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="540" height="340" viewBox="0 0 540 340"><rect width="540" height="340" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/><rect x="0" y="0" width="540" height="58" rx="16" fill="#0369a1"/><text x="270" y="36" font-family="Arial" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">KTP PENDUKUNG ${escapeXml(appState.config.calegName)} • ${escapeXml(tps)}</text><text x="24" y="95" font-family="Courier New" font-size="16" font-weight="bold" fill="#0f172a">NIK : ${escapeXml(nik)}</text><text x="24" y="130" font-family="Arial" font-size="14" font-weight="bold" fill="#0f172a">Nama : ${escapeXml(nama.toUpperCase())}</text><text x="24" y="160" font-family="Arial" font-size="12" fill="#0f172a">Desa : ${escapeXml(desa.toUpperCase())}</text></svg>`;
+        function generateDummyKtpImage(nama, nik, desa = 'DESA', kec = 'KECAMATAN', tps = 'TPS') {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="540" height="340" viewBox="0 0 540 340"><rect width="540" height="340" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/><rect x="0" y="0" width="540" height="58" rx="16" fill="#0369a1"/><text x="270" y="36" font-family="Arial" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">KTP PENDUKUNG ${escapeXml(appState.config.calegName)} • ${escapeXml(tps)}</text><text x="24" y="95" font-family="Courier New" font-size="16" font-weight="bold" fill="#0f172a">NIK : ${escapeXml(nik)}</text><text x="24" y="130" font-family="Arial" font-size="14" font-weight="bold" fill="#0f172a">Nama : ${escapeXml(nama.toUpperCase())}</text><text x="24" y="160" font-family="Arial" font-size="12" fill="#0f172a">Desa : ${escapeXml(desa.toUpperCase())}</text><text x="24" y="185" font-family="Arial" font-size="12" fill="#0f172a">Kec. : ${escapeXml(kec.toUpperCase())}</text></svg>`;
             return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg.trim());
         }
 
@@ -441,7 +436,7 @@
                     suaraList: desa.suaraList || [],
                     pemilihList: (desa.pemilihList || []).map(p => {
                         const hasRealFoto = p.fotoKtp && p.fotoKtp.trim() !== '' && !p.fotoKtp.startsWith('data:image/svg+xml');
-                        return { ...p, hasRealFoto, fotoKtp: hasRealFoto ? p.fotoKtp : generateDummyKtpImage(p.nama, p.nik, desa.nama, p.tps) };
+                        return { ...p, hasRealFoto, fotoKtp: hasRealFoto ? p.fotoKtp : generateDummyKtpImage(p.nama, p.nik, desa.nama, kec.nama, p.tps) };
                     })
                 }))
             }));
@@ -491,14 +486,9 @@
 
         function routeByRole() {
             const u = appState.currentUser;
-            if (!u) {
-                appState.currentLevel = 'login';
-                return;
-            }
+            if (!u) { appState.currentLevel = 'login'; return; }
             if (u.role === 'super') {
-                if (['login', 'pengumpul', 'saksi'].includes(appState.currentLevel)) {
-                    appState.currentLevel = 'kabupaten';
-                }
+                if (['login', 'pengumpul', 'saksi'].includes(appState.currentLevel)) appState.currentLevel = 'kabupaten';
             } else if (u.role === 'desa') {
                 const parentKec = appState.kecamatanList[0];
                 const myDesa = parentKec?.desaList[0];
@@ -530,10 +520,7 @@
             appState.authCredentials = { username, pin };
 
             const res = await postToGoogleSheet({ action: 'login' }, 'Memverifikasi akun tim...');
-            if (!res) {
-                appState.authCredentials = null;
-                return;
-            }
+            if (!res) { appState.authCredentials = null; return; }
             sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({
                 user: appState.currentUser,
                 credentials: appState.authCredentials
@@ -597,11 +584,13 @@
             document.getElementById('role-badge').textContent = roleLabels[u.role] || u.role.toUpperCase();
             document.getElementById('role-user-info').textContent = `${u.displayName} (@${u.username})`;
 
+            const kName = appState.kecamatanList[0]?.nama || '';
+            const dName = appState.kecamatanList[0]?.desaList[0]?.nama || u.scopeId;
             let scopeDesc = '';
             if (u.role === 'super') scopeDesc = `• Pantau Seluruh ${appState.config.kabupatenName}`;
-            else if (u.role === 'desa') scopeDesc = `• Terisolasi khusus ${appState.kecamatanList[0]?.desaList[0]?.nama || u.scopeId}`;
-            else if (u.role === 'pengumpul') scopeDesc = `• Wilayah ${appState.kecamatanList[0]?.desaList[0]?.nama || u.scopeId}`;
-            else if (u.role === 'saksi') scopeDesc = `• Tugas Khusus ${appState.kecamatanList[0]?.desaList[0]?.tpsList[0]?.nama || u.scopeId}`;
+            else if (u.role === 'desa') scopeDesc = `• Wilayah ${dName} (${kName})`;
+            else if (u.role === 'pengumpul') scopeDesc = `• Wilayah ${dName} (${kName})`;
+            else if (u.role === 'saksi') scopeDesc = `• ${appState.kecamatanList[0]?.desaList[0]?.tpsList[0]?.nama || u.scopeId} — ${dName}`;
             document.getElementById('role-scope-desc').textContent = scopeDesc;
 
             if (u.role === 'super' || u.role === 'desa') {
@@ -624,7 +613,6 @@
             lucide.createIcons();
         }
 
-        // Manajemen Akun Tim
         function openUsersModal() {
             const u = appState.currentUser;
             const roleSelect = document.getElementById('user-form-role');
@@ -667,12 +655,7 @@
                 tbody.innerHTML = `<tr><td colspan="4" class="py-4 px-3 text-center text-slate-500">Belum ada akun petugas di wilayah ini.</td></tr>`;
                 return;
             }
-            const badgeRole = {
-                super: 'SUPER ADMIN',
-                desa: 'ADMIN DESA',
-                pengumpul: 'PENGUMPUL KTP',
-                saksi: 'SAKSI TPS'
-            };
+            const badgeRole = { super: 'SUPER ADMIN', desa: 'ADMIN DESA', pengumpul: 'PENGUMPUL KTP', saksi: 'SAKSI TPS' };
             tbody.innerHTML = appState.usersList.map(u => {
                 let scopeLabel = u.scopeId || 'Kabupaten';
                 appState.kecamatanList.forEach(k => {
@@ -944,7 +927,6 @@
             });
         }
 
-        // Input KTP Pemilih (Admin Pengumpul KTP & Admin Desa)
         function handleAddPemilih(event) {
             event.preventDefault();
             const kec = getActiveKecamatan(), desa = getActiveDesa();
@@ -980,10 +962,14 @@
         }
 
         function openEditPemilihModal(pemilihId) {
-            const desa = getActiveDesa();
+            const kec = getActiveKecamatan(), desa = getActiveDesa();
             const p = desa?.pemilihList.find(x => x.id === pemilihId);
             if (!p) return;
             document.getElementById('edit-pemilih-id').value = p.id;
+            document.getElementById('edit-pemilih-meta-box').innerHTML = `
+                <div><strong>Wilayah Terdaftar:</strong> ${escapeHtml(desa.nama)} • ${escapeHtml(kec.nama)}</div>
+                <div><strong>Diinput Oleh:</strong> ${escapeHtml(p.pengumpulNama)} (@${escapeHtml(p.pengumpulUser || 'tim')}) ${p.waktuInput ? `• ${escapeHtml(p.waktuInput)}` : ''}</div>
+            `;
             const tpsOptions = [
                 `<option value="UNASSIGNED" ${p.tpsId === 'UNASSIGNED' ? 'selected' : ''}>-- Belum Dikategorikan / Cek DPT --</option>`,
                 ...(desa.tpsList || []).map(t => `<option value="${t.id}" ${t.id === p.tpsId ? 'selected' : ''}>${escapeHtml(t.nama)}</option>`)
@@ -1027,7 +1013,6 @@
             });
         }
 
-        // Input Suara C1 TPS (Admin Saksi TPS & Admin Desa)
         function handleAddSuara(event, fixedTpsId = null) {
             event.preventDefault();
             const kec = getActiveKecamatan(), desa = getActiveDesa();
@@ -1141,7 +1126,6 @@
             lucide.createIcons();
         }
 
-        // GERBANG LOGIN
         function renderLoginGateView() {
             return `
                 <div class="max-w-md mx-auto mt-4 sm:mt-8 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
@@ -1175,30 +1159,31 @@
                 </div>`;
         }
 
-        // PORTAL ADMIN PENGUMPUL KTP (Tim Lapangan ~10 orang per desa)
+        // PORTAL ADMIN PENGUMPUL KTP (Menampilkan TPS, Desa, Kecamatan, & Nama Penginput)
         function renderPengumpulKtpView() {
             const kec = getActiveKecamatan(), desa = getActiveDesa();
             if (!kec || !desa) return '';
             const tpsList = desa.tpsList || [];
             const myList = desa.pemilihList || [];
+            const currentPetugas = `${appState.currentUser.displayName} (@${appState.currentUser.username})`;
 
             return `
                 <div class="max-w-3xl mx-auto space-y-6">
                     <div class="bg-gradient-to-r from-[#0f2537] to-blue-900 rounded-2xl p-6 text-white shadow-md">
                         <span class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 text-[11px] font-extrabold uppercase">TIM PENGUMPUL KTP • ${escapeHtml(appState.config.calegName)}</span>
                         <h2 class="text-xl sm:text-2xl font-extrabold mt-2">${escapeHtml(desa.nama)} (${escapeHtml(kec.nama)})</h2>
-                        <p class="text-xs sm:text-sm text-blue-200 mt-1">Total KTP Dukungan Setoran Anda: <strong class="text-amber-300">${myList.length} Orang</strong></p>
+                        <p class="text-xs sm:text-sm text-blue-200 mt-1">Petugas: <strong class="text-white">${escapeHtml(currentPetugas)}</strong> • Setoran Anda: <strong class="text-amber-300">${myList.length} Orang</strong></p>
                     </div>
 
                     <div class="bg-white rounded-2xl p-5 sm:p-6 border-2 border-blue-900/20 shadow-sm">
                         <h3 class="font-extrabold text-base text-slate-900 mb-1">Input KTP Pendukung Baru</h3>
-                        <p class="text-xs text-slate-500 mb-4">Pilih TPS pemilih (jika ragu/belum dicek DPT, pilih "Belum Dikategorikan" agar ditata Admin Desa).</p>
+                        <p class="text-xs text-slate-500 mb-4">Wilayah Otomatis: <strong>${escapeHtml(desa.nama)}, ${escapeHtml(kec.nama)}</strong></p>
                         <form onsubmit="handleAddPemilih(event)" class="space-y-4">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                     <label class="block text-xs font-bold text-emerald-800 mb-1">Pilih TPS Pemilih *</label>
                                     <select id="input-pemilih-tps-id" required class="w-full px-3.5 py-2.5 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-sm">
-                                        ${tpsList.map(t => `<option value="${t.id}">${escapeHtml(t.nama)}</option>`).join('')}
+                                        ${tpsList.map(t => `<option value="${t.id}">${escapeHtml(t.nama)} — ${escapeHtml(desa.nama)}</option>`).join('')}
                                         <option value="UNASSIGNED">-- Belum Tahu TPS / Belum Dikategorikan --</option>
                                     </select>
                                 </div>
@@ -1225,39 +1210,45 @@
                         <div class="px-5 py-3.5 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                             <h3 class="font-bold text-sm text-slate-800">Daftar KTP Setoran Anda (${myList.length})</h3>
                         </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse text-sm">
-                                <thead>
-                                    <tr class="bg-[#0f2537] text-white text-xs uppercase">
-                                        <th class="py-3 px-4">TPS (Status DPT)</th>
-                                        <th class="py-3 px-4">Nama Pemilih</th>
-                                        <th class="py-3 px-4">NIK</th>
-                                        <th class="py-3 px-4 text-center">KTP</th>
-                                        <th class="py-3 px-4 text-center">Edit</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-200">
-                                    ${myList.length === 0 ? `<tr><td colspan="5" class="py-8 text-center text-slate-500">Anda belum menyetor data KTP pendukung.</td></tr>` : myList.map(p => `
-                                        <tr>
-                                            <td class="py-3 px-4">
-                                                <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${p.tpsId === 'UNASSIGNED' ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}">
-                                                    ${escapeHtml(p.tps)}
-                                                </span>
-                                            </td>
-                                            <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(p.nama)}</td>
-                                            <td class="py-3 px-4 font-mono text-xs">${escapeHtml(p.nik)}</td>
-                                            <td class="py-3 px-4 text-center"><button onclick="viewPhoto('${p.fotoKtp}', 'KTP: ${escapeHtml(p.nama)}', 'NIK: ${escapeHtml(p.nik)} • ${escapeHtml(p.tps)}')" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat</button></td>
-                                            <td class="py-3 px-4 text-center"><button onclick="openEditPemilihModal('${p.id}')" class="p-1.5 rounded-lg text-blue-800 bg-blue-50"><i data-lucide="pencil" class="w-4 h-4"></i></button></td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
+                        <div class="divide-y divide-slate-200">
+                            ${myList.length === 0 ? `<div class="py-8 text-center text-sm text-slate-500">Anda belum menyetor data KTP pendukung.</div>` : myList.map((p, idx) => `
+                                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50">
+                                    <div class="space-y-1.5">
+                                        <div class="flex flex-wrap items-center gap-1.5">
+                                            <span class="px-2 py-0.5 rounded-md bg-slate-200 text-slate-800 text-[11px] font-extrabold">#${idx + 1}</span>
+                                            <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold ${p.tpsId === 'UNASSIGNED' ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-emerald-100 text-emerald-900 border border-emerald-300'}">
+                                                ${escapeHtml(p.tps)} ${p.tpsId !== 'UNASSIGNED' ? '✓' : ''}
+                                            </span>
+                                            <span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-900 border border-blue-200 text-[11px] font-bold">
+                                                ${escapeHtml(desa.nama)} • ${escapeHtml(kec.nama)}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p class="text-base font-extrabold text-slate-900">${escapeHtml(p.nama)}</p>
+                                            <p class="text-xs font-mono text-slate-600">NIK: ${escapeHtml(p.nik)}</p>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 flex items-center gap-1">
+                                            <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-800"></i>
+                                            <span>Diinput oleh: <strong class="text-slate-700">${escapeHtml(p.pengumpulNama)}</strong> (@${escapeHtml(p.pengumpulUser || appState.currentUser.username)})</span>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-2 self-end sm:self-center">
+                                        <button onclick="viewPhoto('${p.fotoKtp}', 'KTP: ${escapeHtml(p.nama)}', '${escapeHtml(p.tps)} • ${escapeHtml(desa.nama)}, ${escapeHtml(kec.nama)} | Penginput: ${escapeHtml(p.pengumpulNama)}')"
+                                            class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-xs">
+                                            Lihat KTP
+                                        </button>
+                                        <button onclick="openEditPemilihModal('${p.id}')" class="px-3 py-2 rounded-xl text-blue-900 bg-blue-50 hover:bg-blue-100 font-bold text-xs flex items-center gap-1">
+                                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i><span>Ubah</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 </div>`;
         }
 
-        // PORTAL ADMIN SAKSI TPS (UJUNG TOMBAK HARI-H: FOTO PLANO C1 + SUARA SYAHFRY + REKAN 1 PARTAI)
+        // PORTAL ADMIN SAKSI TPS
         function renderSaksiTpsView() {
             const kec = getActiveKecamatan(), desa = getActiveDesa();
             const myTps = desa?.tpsList[0];
@@ -1320,7 +1311,7 @@
                                 <div class="p-3 rounded-xl bg-slate-100 border border-slate-200"><span class="text-xs text-slate-700 font-bold block">Total Sah Partai</span><span class="text-xl font-extrabold text-slate-900">${mySuara.totalSahPartai}</span></div>
                             </div>
                             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-                                ${mySuara.fotoCHasil ? `<button onclick="viewPhoto('${mySuara.fotoCHasil}', 'Foto Plano C1', '${escapeHtml(myTps.nama)}')" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat Foto Plano C1</button>` : '<span class="text-xs text-slate-400">Belum ada foto C1</span>'}
+                                ${mySuara.fotoCHasil ? `<button onclick="viewPhoto('${mySuara.fotoCHasil}', 'Foto Plano C1', '${escapeHtml(myTps.nama)} • ${escapeHtml(desa.nama)}, ${escapeHtml(kec.nama)}')" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat Foto Plano C1</button>` : '<span class="text-xs text-slate-400">Belum ada foto C1</span>'}
                                 ${!isFinal ? `<button onclick="openEditSuaraModal('${mySuara.id}')" class="px-4 py-2 rounded-xl bg-blue-900 text-white font-bold text-xs">Koreksi Angka / Foto</button>` : '<span class="text-xs font-bold text-emerald-700">Dikunci Final oleh Admin Desa</span>'}
                             </div>
                         </div>
@@ -1328,7 +1319,7 @@
                 </div>`;
         }
 
-        // LEVEL 1: KABUPATEN (KHUSUS CALEG SYAHFRY / SUPER ADMIN)
+        // LEVEL 1: KABUPATEN
         function renderKabupatenView() {
             const filteredKec = appState.kecamatanList.filter(k => k.nama.toLowerCase().includes(appState.searchQuery));
             return `
@@ -1376,7 +1367,7 @@
                 </div>`;
         }
 
-        // LEVEL 2: KECAMATAN (Super Admin)
+        // LEVEL 2: KECAMATAN
         function renderKecamatanView() {
             const kec = getActiveKecamatan();
             if (!kec) return '';
@@ -1476,14 +1467,13 @@
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
                                 <span class="px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">POSKO PENATAAN DPT & REKAP DESA</span>
-                                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">${escapeHtml(desa.nama)}</h2>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">${escapeHtml(desa.nama)} • ${escapeHtml(kec.nama)}</h2>
                             </div>
                             <button onclick="openUsersModal()" class="px-4 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs">
                                 <i data-lucide="user-plus" class="w-4 h-4"></i><span>Buat Akun Tim KTP / Saksi</span>
                             </button>
                         </div>
 
-                        <!-- Sub-Navigation Tabs -->
                         <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
                             <button onclick="switchDesaTab('pemilih')"
                                 class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold ${appState.desaActiveTab === 'pemilih' ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-600'}">
@@ -1539,7 +1529,6 @@
                     ` : ''}
 
                     ${appState.desaActiveTab === 'pemilih' ? `
-                        <!-- Ringkasan Kinerja Pengumpul KTP di Desa Ini -->
                         <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs space-y-3">
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <span class="text-xs font-extrabold uppercase text-slate-700">Setoran Tim Pengumpul KTP (${Object.keys(pengumpulMap).length} Petugas):</span>
@@ -1560,9 +1549,8 @@
                             </div>
                         </div>
 
-                        <!-- Form Input Langsung oleh Admin Desa -->
                         <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs">
-                            <h3 class="font-bold text-sm text-slate-900 mb-3">Tambah Langsung Pemilih ke DPT Desa</h3>
+                            <h3 class="font-bold text-sm text-slate-900 mb-3">Tambah Langsung Pemilih ke DPT ${escapeHtml(desa.nama)}</h3>
                             <form onsubmit="handleAddPemilih(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3">
                                 <div class="md:col-span-3">
                                     <select id="input-pemilih-tps-id" required class="w-full px-3 py-2.5 rounded-xl border-2 border-emerald-600/40 bg-emerald-50/40 font-bold text-xs sm:text-sm">
@@ -1577,47 +1565,41 @@
                             </form>
                         </div>
 
-                        <!-- Tabel Penataan DPT Desa -->
-                        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left border-collapse text-sm">
-                                    <thead>
-                                        <tr class="bg-[#0f2537] text-white text-xs uppercase">
-                                            <th class="py-3 px-4 text-center w-12">No</th>
-                                            <th class="py-3 px-4">TPS (DPT)</th>
-                                            <th class="py-3 px-4">Nama Pemilih</th>
-                                            <th class="py-3 px-4">NIK KTP</th>
-                                            <th class="py-3 px-4">Pengumpul KTP</th>
-                                            <th class="py-3 px-4 text-center">Foto KTP</th>
-                                            <th class="py-3 px-4 text-center">Tata DPT / Ubah</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-slate-200">
-                                        ${filteredPemilih.length === 0 ? `<tr><td colspan="7" class="py-8 text-center text-slate-500">Tidak ada data pemilih sesuai filter.</td></tr>` : filteredPemilih.map((p, idx) => `
-                                            <tr class="${p.tpsId === 'UNASSIGNED' ? 'bg-amber-50/60' : ''}">
-                                                <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
-                                                <td class="py-3 px-4">
-                                                    <span class="px-2.5 py-1 rounded-lg text-xs font-bold ${p.tpsId === 'UNASSIGNED' ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}">
-                                                        ${escapeHtml(p.tps)}
-                                                    </span>
-                                                </td>
-                                                <td class="py-3 px-4 font-bold text-slate-900">${escapeHtml(p.nama)}</td>
-                                                <td class="py-3 px-4 font-mono text-xs">${escapeHtml(p.nik)}</td>
-                                                <td class="py-3 px-4 text-xs text-slate-600 font-semibold">${escapeHtml(p.pengumpulNama)}</td>
-                                                <td class="py-3 px-4 text-center"><button onclick="viewPhoto('${p.fotoKtp}', 'KTP: ${escapeHtml(p.nama)}', 'NIK: ${escapeHtml(p.nik)} • ${escapeHtml(p.tps)}')" class="px-3 py-1 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">Lihat</button></td>
-                                                <td class="py-3 px-4 text-center">
-                                                    <div class="inline-flex gap-1.5">
-                                                        <button onclick="openEditPemilihModal('${p.id}')" class="px-2.5 py-1 rounded-lg text-white bg-blue-900 hover:bg-blue-800 text-xs font-bold flex items-center gap-1" title="Ubah TPS / Koreksi Data">
-                                                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i><span>Ubah</span>
-                                                        </button>
-                                                        <button onclick="handleDeletePemilih('${p.id}', '${escapeHtml(p.nama)}')" class="p-1.5 rounded-lg text-red-600 bg-red-50"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        `).join('')}
-                                    </tbody>
-                                </table>
-                            </div>
+                        <!-- Daftar DPT Lengkap (TPS, Desa, Kecamatan, & Nama Pengumpul KTP) -->
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden divide-y divide-slate-200">
+                            ${filteredPemilih.length === 0 ? `<div class="py-8 text-center text-sm text-slate-500">Tidak ada data pemilih sesuai filter.</div>` : filteredPemilih.map((p, idx) => `
+                                <div class="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${p.tpsId === 'UNASSIGNED' ? 'bg-amber-50/60' : 'hover:bg-slate-50'}">
+                                    <div class="space-y-1.5">
+                                        <div class="flex flex-wrap items-center gap-1.5">
+                                            <span class="px-2 py-0.5 rounded-md bg-slate-200 text-slate-800 text-[11px] font-extrabold">#${idx + 1}</span>
+                                            <span class="px-2.5 py-0.5 rounded-lg text-xs font-extrabold ${p.tpsId === 'UNASSIGNED' ? 'bg-red-100 text-red-800 border border-red-300' : 'bg-emerald-100 text-emerald-900 border border-emerald-300'}">
+                                                ${escapeHtml(p.tps)} ${p.tpsId !== 'UNASSIGNED' ? '✓' : ''}
+                                            </span>
+                                            <span class="px-2 py-0.5 rounded-lg bg-blue-50 text-blue-900 border border-blue-200 text-[11px] font-bold">
+                                                ${escapeHtml(desa.nama)} • ${escapeHtml(kec.nama)}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p class="text-base font-extrabold text-slate-900">${escapeHtml(p.nama)}</p>
+                                            <p class="text-xs font-mono text-slate-600">NIK: ${escapeHtml(p.nik)}</p>
+                                        </div>
+                                        <p class="text-xs text-slate-600 flex items-center gap-1">
+                                            <i data-lucide="user-check" class="w-3.5 h-3.5 text-blue-900"></i>
+                                            <span>Penginput KTP: <strong class="text-slate-900">${escapeHtml(p.pengumpulNama)}</strong> (@${escapeHtml(p.pengumpulUser || 'tim')})</span>
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center gap-2 self-end sm:self-center">
+                                        <button onclick="viewPhoto('${p.fotoKtp}', 'KTP: ${escapeHtml(p.nama)}', '${escapeHtml(p.tps)} • ${escapeHtml(desa.nama)}, ${escapeHtml(kec.nama)} | Penginput: ${escapeHtml(p.pengumpulNama)}')"
+                                            class="px-3 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs">
+                                            Lihat KTP
+                                        </button>
+                                        <button onclick="openEditPemilihModal('${p.id}')" class="px-3 py-2 rounded-xl text-white bg-blue-900 hover:bg-blue-800 text-xs font-bold flex items-center gap-1">
+                                            <i data-lucide="pencil" class="w-3.5 h-3.5"></i><span>Ubah TPS</span>
+                                        </button>
+                                        <button onclick="handleDeletePemilih('${p.id}', '${escapeHtml(p.nama)}')" class="p-2 rounded-xl text-red-600 bg-red-50"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                                    </div>
+                                </div>
+                            `).join('')}
                         </div>
                     ` : ''}
 
